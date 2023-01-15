@@ -1,0 +1,36 @@
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Reservations.Domain;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Reservations.Persistance.Configurations
+{
+    public class UserConfiguration : AuditableEntityConfiguration<User>
+    {
+        public override void ConfigureAuditableEntity(EntityTypeBuilder<User> builder)
+        {
+            builder.HasKey(u => u.Id);
+            builder.Property(u => u.Email)
+                .HasMaxLength(128)
+                .IsRequired();
+            builder.Property(u => u.FirstName)
+                .IsRequired();
+            builder.Property(u => u.LastName)
+                .IsRequired();
+            builder.HasMany(u => u.Reservations)
+                   .WithOne(u => u.User);
+            builder.Property(u => u.RoleId)
+                .IsRequired();
+            builder.HasOne(u => u.Role)
+                .WithMany(r => r.Users)
+                .HasForeignKey(u => u.RoleId);
+            builder.HasOne(u => u.LoginDetails)
+                .WithOne(ld => ld.User)
+                .HasForeignKey<LoginDetails>(u => u.UserId)
+                .IsRequired();
+        }
+    }
+}

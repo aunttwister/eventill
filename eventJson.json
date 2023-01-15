@@ -1,0 +1,23 @@
+{
+  "name": "Event1",
+  "description": "Description",
+  "length": "01:30:00",
+  "ticketCount": 15,
+  "ticketPrice": 1499,
+  "eventTypeId": 1,
+  "eventQuestions": [
+    {
+      "content": "xxxx"
+    },
+    {
+      "content": "yyyy"
+    }
+  ],
+  "eventOccurences": [
+    {
+      "startTime": "2023-01-15T19:27:54.335Z",
+      "endTime": "2023-01-15T19:27:54.335Z",
+      "eventId": 0
+    }
+  ]
+}
