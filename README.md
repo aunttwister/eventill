@@ -116,7 +116,7 @@ Extends = optional step Include = mandatory step
 
 Only out of the ordinary thing here is an option to select multiple tickets.
 
-![alt text](https://github.com/aunttwister/eventill/blob/master/README data/Aspose.Words.a4b4a3ec-4062-4c21-9cd5-909433a582fe.001.png)
+![alt text](https://github.com/aunttwister/eventill/blob/master/README%20data/Aspose.Words.a4b4a3ec-4062-4c21-9cd5-909433a582fe.001.png)
 
 **Admin creates an event**
 
@@ -132,7 +132,7 @@ These entities are all related to the main one - event. They either describe or 
 
 Extends = optional step Include = mandatory step
 
-![alt text](https://github.com/aunttwister/eventill/blob/master/README data/Aspose.Words.a4b4a3ec-4062-4c21-9cd5-909433a582fe.002.jpeg)
+![alt text](https://github.com/aunttwister/eventill/blob/master/README%20data/Aspose.Words.a4b4a3ec-4062-4c21-9cd5-909433a582fe.002.jpeg)
 
 The process itself it pretty straightforward: it is going to be a one page form where an admin will fill out all mandatory fields and saves the event.
 
@@ -146,7 +146,7 @@ Activity that occurs before this use case, besides reservation use case, is that
 
 This use case will assume that the payment received and that the only thing left to do is for admin to confirm that in the app.
 
-![alt text](https://github.com/aunttwister/eventill/blob/master/Aspose.Words.a4b4a3ec-4062-4c21-9cd5-909433a582fe.003.png)
+![alt text](https://github.com/aunttwister/eventill/blob/master/README%20data/Aspose.Words.a4b4a3ec-4062-4c21-9cd5-909433a582fe.003.png)
 
 Documentation Page 6
 
@@ -154,7 +154,7 @@ Class Diagram
 
 Wednesday, January 11, 2023 6:14 PM
 
-![alt text](https://github.com/aunttwister/eventill/blob/master/Aspose.Words.a4b4a3ec-4062-4c21-9cd5-909433a582fe.004.jpeg)
+![alt text](https://github.com/aunttwister/eventill/blob/master/README%20data/Aspose.Words.a4b4a3ec-4062-4c21-9cd5-909433a582fe.004.jpeg)
 
 Documentation Page 7
 
@@ -163,7 +163,7 @@ Entity Relationship Diagram
 
 Wednesday, January 11, 2023 6:15 PM
 
-![alt text](https://github.com/aunttwister/eventill/blob/master//Aspose.Words.a4b4a3ec-4062-4c21-9cd5-909433a582fe.005.png)
+![alt text](https://github.com/aunttwister/eventill/blob/master/README%20data//Aspose.Words.a4b4a3ec-4062-4c21-9cd5-909433a582fe.005.png)
 
 Backend Architecture
 
