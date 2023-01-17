@@ -76,6 +76,7 @@ namespace Reservations.UnitTests.Reservations.Commands
         [Fact]
         public async Task CreateReservation_Throws_OrderExceedsAvailableAmount_Exception()
         {
+            //arrange
             var mockContext = new Mock<IReservationDbContext>();
             mockContext.Setup(c => c.Reservations).Returns(_reservationDataMocks.MockData().Object);
             mockContext.Setup(c => c.Tickets).Returns(_ticketDataMocks.MockData().Object);
@@ -93,6 +94,8 @@ namespace Reservations.UnitTests.Reservations.Commands
             var mockMediator = new Mock<IMediator>();
             var handler = new CreateReservationCommandHandler(mockMediator.Object, _mapper, mockContext.Object);
 
+            //act
+
             async Task result() => await handler.Handle(new CreateReservationCommand
             {
                 Email = userEmail,
@@ -101,6 +104,8 @@ namespace Reservations.UnitTests.Reservations.Commands
                 TicketCount = 20
 
             }, new CancellationToken());
+
+            //assert
 
             await Assert.ThrowsAsync<OrderExceedsAvailabileAmountException>(result);
         }

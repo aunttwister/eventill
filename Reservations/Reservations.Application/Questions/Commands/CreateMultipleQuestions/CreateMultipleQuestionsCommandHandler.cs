@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Reservations.Application.Questions.Commands.CreateMultipleQuestions
 {
-    public class CreateMultipleQuestionsCommandHandler : IRequestHandler<CreateMultipleQuestionsCommand, IEnumerable<TicketDto>>
+    public class CreateMultipleQuestionsCommandHandler : IRequestHandler<CreateMultipleQuestionsCommand, IEnumerable<QuestionDto>>
     {
         private readonly IMapper _mapper;
         private readonly IReservationDbContext _dbContext;
@@ -26,7 +26,7 @@ namespace Reservations.Application.Questions.Commands.CreateMultipleQuestions
             _mapper = mapper;
             _dbContext = dbContext;
         }
-        public async Task<IEnumerable<TicketDto>> Handle(CreateMultipleQuestionsCommand request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<QuestionDto>> Handle(CreateMultipleQuestionsCommand request, CancellationToken cancellationToken)
         {
             IEnumerable<Question> questions = _mapper.Map<IEnumerable<Question>>(request.Questions);
             IEnumerable<Question> questionsDelta = await _dbContext.Questions.ReturnQuestionDeltaAsync(questions, cancellationToken);
@@ -38,7 +38,7 @@ namespace Reservations.Application.Questions.Commands.CreateMultipleQuestions
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 
-            return _mapper.Map<IEnumerable<TicketDto>>(questionsDelta);
+            return _mapper.Map<IEnumerable<QuestionDto>>(questionsDelta);
         }
     }
 }

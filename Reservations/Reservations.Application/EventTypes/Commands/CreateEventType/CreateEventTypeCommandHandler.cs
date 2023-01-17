@@ -31,7 +31,7 @@ namespace Reservations.Application.EventTypes.Commands.CreateEventType
             EventType newEventType = _mapper.Map<EventType>(request);
 
             if (await _dbContext.EventTypes.EventTypeExistsAsync(newEventType, cancellationToken))
-                throw new AlreadyExistsException($"{nameof(EventType)}/s with stated date already exist.");
+                throw new AlreadyExistsException($"{nameof(EventType)} with the same name already exists.");
 
             _dbContext.EventTypes.Add(newEventType);
 

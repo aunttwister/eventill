@@ -12,6 +12,7 @@ namespace Reservations.Application.DataTransferObjects
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public long EventId { get; set; }
-        public Event Event { get; set; }
+        public EventDto Event { get; set; }
+        public IEnumerable<TicketDto> Tickets { get; set; }
     }
 }

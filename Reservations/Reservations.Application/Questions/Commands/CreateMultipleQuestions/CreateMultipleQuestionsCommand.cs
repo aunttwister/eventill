@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Reservations.Application.Questions.Commands.CreateMultipleQuestions
 {
-    public class CreateMultipleQuestionsCommand : IRequest<IEnumerable<TicketDto>>
+    public class CreateMultipleQuestionsCommand : IRequest<IEnumerable<QuestionDto>>
     {
         public IEnumerable<CreateQuestionCommand> Questions;
     }
