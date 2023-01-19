@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Reservations.Application.Events.Commands.EditEvent
 {
-    public class EditEventCommand : IRequest<EventDto>
+    public class EditEventCommand : IRequest
     {
         public long Id { get; set; }
         public string Name { get; set; }

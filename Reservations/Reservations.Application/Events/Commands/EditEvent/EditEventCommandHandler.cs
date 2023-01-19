@@ -4,27 +4,21 @@ using Reservations.Application.Common.Exceptions;
 using Reservations.Application.Common.Extensions;
 using Reservations.Application.Common.Helpers;
 using Reservations.Application.Common.Interfaces;
-using Reservations.Application.DataTransferObjects;
-using Reservations.Application.EventOccurrences.Commands.CreateMultipleEventOccurrences;
-using Reservations.Application.Questions.Commands.CreateMultipleQuestions;
-using Reservations.Application.Tickets.Commands.CreateMultipleTickets;
 using Reservations.Domain;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
-namespace Reservations.Application.Events.Commands.CreateEvent
+namespace Reservations.Application.Events.Commands.EditEvent
 {
-    public class CreateEventCommandHandler : IRequestHandler<CreateEventCommand, EventDto>
+    public class EditEventCommandHandler : IRequestHandler<EditEventCommand>
     {
         private readonly IMapper _mapper;
         private readonly IReservationDbContext _dbContext;
         private readonly IEventSetupService _eventSetupService;
-        public CreateEventCommandHandler(
+        public EditEventCommandHandler(
             IMapper mapper,
             IReservationDbContext dbContext,
             IEventSetupService eventSetupService)
@@ -33,8 +27,7 @@ namespace Reservations.Application.Events.Commands.CreateEvent
             _dbContext = dbContext;
             _eventSetupService = eventSetupService;
         }
-
-        public async Task<EventDto> Handle(CreateEventCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(EditEventCommand request, CancellationToken cancellationToken)
         {
             Event newEvent = _mapper.Map<Event>(request);
 
@@ -58,7 +51,7 @@ namespace Reservations.Application.Events.Commands.CreateEvent
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 
-            return _mapper.Map<EventDto>(newEvent);
+            return Unit.Value;
         }
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using Reservations.Application.Common.Exceptions;
 using Reservations.Application.Common.Interfaces;
+using Reservations.Application.Common.Services;
 using Reservations.Application.DataTransferObjects;
 using Reservations.Application.EventOccurrences.Commands.CreateEventOccurrence;
 using Reservations.Application.Events.Commands.CreateEvent;
@@ -54,13 +55,15 @@ namespace Reservations.UnitTests.Events.Commands.CreateEvent
             var mockDateTime = new Mock<IDateTime>();
             mockDateTime.Setup(mock => mock.UtcNow).Returns(() => DateTime.UtcNow);
 
+            IEventSetupService mockEventSetupService = new EventSetupService(mockContext.Object);
+
             string userEmail = "member1@example.com";
 
             var mockUserService = new Mock<ICurrentUserService>();
             mockUserService.Setup(mock => mock.Email).Returns(() => userEmail);
             mockUserService.Setup(mock => mock.IsAuthenticated).Returns(() => true);
             var mockMediator = new Mock<IMediator>();
-            var handler = new CreateEventCommandHandler(mockMediator.Object, _mapper, mockContext.Object);
+            var handler = new CreateEventCommandHandler(_mapper, mockContext.Object, mockEventSetupService);
 
             CreateEventCommand mockRequest = new CreateEventCommand
             {
@@ -131,6 +134,8 @@ namespace Reservations.UnitTests.Events.Commands.CreateEvent
             var mockDateTime = new Mock<IDateTime>();
             mockDateTime.Setup(mock => mock.UtcNow).Returns(() => DateTime.UtcNow);
 
+            IEventSetupService mockEventSetupService = new EventSetupService(mockContext.Object);
+
             string userEmail = "member1@example.com";
 
             var mockUserService = new Mock<ICurrentUserService>();
@@ -138,7 +143,7 @@ namespace Reservations.UnitTests.Events.Commands.CreateEvent
             mockUserService.Setup(mock => mock.IsAuthenticated).Returns(() => true);
             var mockMediator = new Mock<IMediator>();
 
-            var handler = new CreateEventCommandHandler(mockMediator.Object, _mapper, mockContext.Object);
+            var handler = new CreateEventCommandHandler(_mapper, mockContext.Object, mockEventSetupService);
 
             CreateEventCommand mockRequest = new CreateEventCommand
             {
