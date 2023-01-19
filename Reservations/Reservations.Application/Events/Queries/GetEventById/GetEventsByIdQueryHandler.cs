@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Reservations.Application.Events.Commands.Queries.GetEventsById
+namespace Reservations.Application.Events.Queries.GetEventById
 {
     public class GetEventsByIdQueryHandler : IRequestHandler<GetEventsByIdQuery, EventDto>
     {

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Reservations.Application.Reservations.Commands.ConfirmPaymentCompleted;
 using Reservations.Application.Reservations.Commands.CreateReservation;
 using Reservations.Application.Users.Commands.CreateGuestUser;
 using Reservations.Domain;
@@ -15,6 +16,7 @@ namespace Reservations.Application.Reservations
         public MappingProfile()
         {
             CreateMap<CreateReservationCommand, Reservation>();
+            CreateMap<EditReservationCommand, Reservation>();
         }
     }
 }

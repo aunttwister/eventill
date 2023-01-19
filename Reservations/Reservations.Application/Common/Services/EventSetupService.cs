@@ -39,7 +39,7 @@ namespace Reservations.Application.Common.Services
                 .ReturnQuestionDeltaAsync(questions, cancellationToken);
 
             if (!questionsDelta.Any() || questionsDelta is null)
-                throw new AlreadyExistsException($"{nameof(Question)}/s with stated date already exist.");
+                throw new AlreadyExistsException($"{nameof(Question)}/s with that content already exist.");
 
             return questionsDelta.ToList();
         }

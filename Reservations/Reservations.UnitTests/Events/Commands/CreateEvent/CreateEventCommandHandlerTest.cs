@@ -123,7 +123,7 @@ namespace Reservations.UnitTests.Events.Commands.CreateEvent
         }
 
         [Fact]
-        public async Task CreateEvent_Fail_DuplicateEventType_Inserted()
+        public async Task CreateEvent_Should_Fail_EventType_Already_Exists()
         {
             //arrange
             var mockContext = new Mock<IReservationDbContext>();
@@ -167,6 +167,61 @@ namespace Reservations.UnitTests.Events.Commands.CreateEvent
                 EventType = new CreateEventTypeCommand()
                 {
                     Name = "Ambient Performance"
+                }
+            };
+
+            //act
+            async Task result() => await handler.Handle(mockRequest, new CancellationToken());
+
+            //assert
+
+            await Assert.ThrowsAsync<AlreadyExistsException>(result);
+        }
+
+        [Fact]
+        public async Task CreateEvent_Should_Fail_Question_Already_Exists()
+        {
+            //arrange
+            var mockContext = new Mock<IReservationDbContext>();
+            mockContext.Setup(c => c.Questions).Returns(_questionDataMocks.MockData().Object);
+            mockContext.Setup(c => c.EventTypes).Returns(_eventTypeMocks.MockData().Object);
+            mockContext.Setup(c => c.Events).Returns(_eventDataMocks.MockData().Object);
+            mockContext.Setup(c => c.EventOccurrences).Returns(_eventOccurrenceDataMocks.MockData().Object);
+            var mockDateTime = new Mock<IDateTime>();
+            mockDateTime.Setup(mock => mock.UtcNow).Returns(() => DateTime.UtcNow);
+
+            IEventSetupService mockEventSetupService = new EventSetupService(mockContext.Object);
+
+            string userEmail = "member1@example.com";
+
+            var mockUserService = new Mock<ICurrentUserService>();
+            mockUserService.Setup(mock => mock.Email).Returns(() => userEmail);
+            mockUserService.Setup(mock => mock.IsAuthenticated).Returns(() => true);
+            var mockMediator = new Mock<IMediator>();
+
+            var handler = new CreateEventCommandHandler(_mapper, mockContext.Object, mockEventSetupService);
+
+            CreateEventCommand mockRequest = new CreateEventCommand
+            {
+
+                TicketCount = 15,
+                Description = "xxxx",
+                Length = new TimeSpan(1, 30, 0),
+                EventOccurences = new List<CreateEventOccurrenceCommand>()
+                {
+                    new CreateEventOccurrenceCommand() { StartTime = DateTime.Parse("2023-03-02 18:00:00"), EndTime = DateTime.Parse("2023-03-02 19:30:00"), EventId = 1 },
+                    new CreateEventOccurrenceCommand() { StartTime = DateTime.Parse("2023-03-09 18:00:00"), EndTime = DateTime.Parse("2023-03-09 19:30:00"), EventId = 1 },
+                    new CreateEventOccurrenceCommand() { StartTime = DateTime.Parse("2023-03-16 18:00:00"), EndTime = DateTime.Parse("2023-03-16 19:30:00"), EventId = 1 },
+                    new CreateEventOccurrenceCommand() { StartTime = DateTime.Parse("2023-03-23 18:00:00"), EndTime = DateTime.Parse("2023-03-23 19:30:00"), EventId = 1 },
+                    new CreateEventOccurrenceCommand() { StartTime = DateTime.Parse("2023-03-30 18:00:00"), EndTime = DateTime.Parse("2023-03-30 19:30:00"), EventId = 1 },
+                },
+                EventQuestions = new List<CreateQuestionCommand>()
+                {
+                    new CreateQuestionCommand() { Content = "xxx" }
+                },
+                EventType = new CreateEventTypeCommand()
+                {
+                    Name = "NewEventType"
                 }
             };
 

@@ -6,10 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Reservations.Application.Events.Commands.Queries.GetEventsById
+namespace Reservations.Application.Events.Queries.GetEvents
 {
-    public class GetEventsByIdQuery : IRequest<EventDto>
+    public class GetEventsQuery : IRequest<List<EventDto>>
     {
-        public long Id { get; set; }
     }
 }

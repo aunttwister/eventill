@@ -35,9 +35,6 @@ namespace Reservations.Application.Events.Commands.EditEvent
                 if (await _dbContext.EventTypes.EventTypeExistsAsync(newEvent.EventType, cancellationToken))
                     throw new AlreadyExistsException($"{nameof(EventType)} with the same name already exists.");
 
-            newEvent.EventOccurences = await _eventSetupService
-                .FilterEventOccurrencesAsync(newEvent.EventOccurences, cancellationToken);
-
             foreach (EventOccurrence eventOccurrence in newEvent.EventOccurences)
             {
                 eventOccurrence.Tickets.AddRange(

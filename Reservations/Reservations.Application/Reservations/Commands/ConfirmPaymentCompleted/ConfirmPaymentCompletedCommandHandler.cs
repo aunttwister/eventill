@@ -32,6 +32,14 @@ namespace Reservations.Application.Reservations.Commands.ConfirmPaymentCompleted
             List<Reservation> reservations = await _dbContext.Reservations
                 .Where(r => requestedReservations.Select(r => r.Id).Contains(r.Id)).ToListAsync();
 
+            var reservationNotFound = request.Reservations
+                .Select(r => r.Id)
+                .Except(reservations
+                    .Select(r => r.Id));
+
+            if (reservationNotFound != null)
+                throw new NotFoundException(nameof(Reservation), reservationNotFound.First());
+
             reservations.ForEach(r =>
             {
                 r.PaymentCompleted = true;
