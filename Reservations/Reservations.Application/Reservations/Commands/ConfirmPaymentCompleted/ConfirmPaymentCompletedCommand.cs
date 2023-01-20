@@ -16,6 +16,7 @@ namespace Reservations.Application.Reservations.Commands.ConfirmPaymentCompleted
     public class EditReservationCommand : IRequest
     {
         public long Id { get; set; }
+        public int TicketCount { get; set; }
         public bool PaymentCompleted { get; set; }
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Reservations.Persistance.Configurations
 {
-    public class ExtensionConfiguration : AuditableEntityConfiguration<Extension>
+    /*public class ExtensionConfiguration : AuditableEntityConfiguration<Extension>
     {
         public override void ConfigureAuditableEntity(EntityTypeBuilder<Extension> builder)
         {
@@ -22,5 +22,5 @@ namespace Reservations.Persistance.Configurations
                 .WithOne(te => te.Extension)
                 .IsRequired();
         }
-    }
+    }*/
 }

@@ -27,12 +27,12 @@ namespace Reservations.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateEvent([FromBody] CreateEventCommand request)
         {
-            var log = await _mediator.Send(request);
-            return Ok(log);
+            var response = await _mediator.Send(request);
+            return CreatedAtAction(nameof(GetEvent), new { Id = response.Id });
         }
 
         [HttpPut("{id}")]
-        [ProducesResponseType(typeof(EventDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> EditEvent([FromRoute] long id, [FromBody] EditEventCommand request)

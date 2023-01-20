@@ -32,7 +32,8 @@ namespace Reservations.Application.Reservations.Commands.CreateReservation
         public async Task<ReservationDto> Handle(CreateReservationCommand request, CancellationToken cancellationToken)
         {
             IEnumerable<Ticket> availableTickets = await _dbContext.Tickets
-                .Where(t => t.TicketState == TicketState.Available)
+                .Where(t => t.EventOccurenceId == request.EventOccurrenceId 
+                 && t.TicketState == TicketState.Available)
                 .ToListAsync(cancellationToken);
 
             if (availableTickets.Count() < request.TicketCount)

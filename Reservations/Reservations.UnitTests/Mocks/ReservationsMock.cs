@@ -35,8 +35,12 @@ namespace Reservations.UnitTests.Mocks
             List<User> users = _userDataMocks.InitializeData();
 
             return new List<Reservation>() {
-                new Reservation { Id = 1, UserId = users.First().Id, User = users.First(), Tickets = tickets.Where(t => t.TicketState == TicketState.Reserved).ToList() },
-                new Reservation { Id = 2, UserId = users.Last().Id, User = users.Last(), Tickets = tickets.Where(t => t.TicketState == TicketState.Sold).ToList() }
+                new Reservation { Id = 1, UserId = users.ElementAt(0).Id, User = users.ElementAt(0), Tickets = tickets
+                .Where(t => t.TicketState == TicketState.Reserved && t.EventOccurenceId == 1).ToList() },
+                new Reservation { Id = 2, UserId = users.ElementAt(1).Id, User = users.ElementAt(1), Tickets = tickets
+                .Where(t => t.TicketState == TicketState.Reserved && t.ReservationId == 2).ToList() },
+                new Reservation { Id = 3, UserId = users.ElementAt(2).Id, User = users.ElementAt(2), Tickets = tickets
+                .Where(t => t.TicketState == TicketState.Reserved && t.ReservationId == 3).ToList() }
             };
         }
     }

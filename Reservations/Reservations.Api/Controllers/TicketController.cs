@@ -19,14 +19,13 @@ namespace Reservations.Api.Controllers
             _mediator = mediator;
         }
 
-        //EventOccurrenceId is missing
-        [HttpGet("{ticketState}")]
+        [HttpGet("{eventOccurrenceId}/{ticketState}")]
         [ProducesResponseType(typeof(TicketsStateDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetCountTicketState([FromRoute] string ticketState)
+        public async Task<IActionResult> GetCountTicketState([FromRoute] long eventOccurrenceId, [FromRoute] string ticketState)
         {
 
-            TicketsStateDto ticketStateResponse = await _mediator.Send(new GetCountTicketStateQuery(ticketState));
+            TicketsStateDto ticketStateResponse = await _mediator.Send(new GetCountTicketStateQuery(eventOccurrenceId, ticketState));
             return Ok(ticketStateResponse);
         }
 

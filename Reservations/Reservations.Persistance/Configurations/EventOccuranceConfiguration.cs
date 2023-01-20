@@ -15,8 +15,6 @@ namespace Reservations.Persistance.Configurations
             builder.HasKey(eo => eo.Id);
             builder.Property(eo => eo.StartTime)
                 .IsRequired();
-            builder.Property(eo => eo.EndTime)
-                .IsRequired();
             builder.HasOne(eo => eo.Event)
                 .WithMany(e => e.EventOccurences)
                 .HasForeignKey(eo => eo.EventId)

@@ -10,12 +10,13 @@ namespace Reservations.Application.Tickets.Queries.GetCountTicketState
 {
     public class GetCountTicketStateQuery : IRequest<TicketsStateDto>
     {
-        public GetCountTicketStateQuery(string ticketState)
+        public GetCountTicketStateQuery(long eventOccurrenceId, string ticketState)
         {
+            EventOccurrenceId = eventOccurrenceId;
             TicketState = ticketState;
         }
 
+        public long EventOccurrenceId { get; set; }
         public string TicketState { get; set; }
-        //public long EventOccurrence { get; set; }
     }
 }

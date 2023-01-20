@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Reservations.Persistance.Configurations
 {
-    public class TicketExtensionConfiguration : AuditableEntityConfiguration<TicketExtension>
+    /*public class TicketExtensionConfiguration : AuditableEntityConfiguration<TicketExtension>
     {
         public override void ConfigureAuditableEntity(EntityTypeBuilder<TicketExtension> builder)
         {
@@ -22,5 +22,5 @@ namespace Reservations.Persistance.Configurations
                 .HasForeignKey(te => te.ExtensionId)
                 .IsRequired();
         }
-    }
+    }*/
 }

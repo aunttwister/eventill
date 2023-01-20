@@ -2,9 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Reservations.Application.DataTransferObjects;
 using Reservations.Application.Events.Commands.DeleteEvent;
+using Reservations.Application.Events.Queries.GetEventById;
 using Reservations.Application.Reservations.Commands.ConfirmPaymentCompleted;
 using Reservations.Application.Reservations.Commands.CreateReservation;
 using Reservations.Application.Reservations.Commands.DeleteReservation;
+using Reservations.Application.Reservations.Queries.GetReservations;
 using Reservations.Application.Tickets.Commands.CreateMultipleTickets;
 using Reservations.Application.Tickets.Queries.GetCountTicketState;
 
@@ -22,7 +24,7 @@ namespace Reservations.Api.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(List<ReservationDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ReservationDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateReservation([FromBody] CreateReservationCommand request)
@@ -31,8 +33,8 @@ namespace Reservations.Api.Controllers
             return Ok(log);
         }
 
-        [HttpPost]
-        [ProducesResponseType(StatusCodes.Status207MultiStatus)]
+        [HttpPost("confirm")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> ConfirmPaymentReservations([FromBody] ConfirmPaymentCompletedCommand request)
@@ -49,6 +51,16 @@ namespace Reservations.Api.Controllers
         {
             await _mediator.Send(new DeleteReservationCommand { Id = id });
             return NoContent();
+        }
+
+        [HttpGet("{eventOccurrenceId}")]
+        [ProducesResponseType(typeof(List<ReservationDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetReservations([FromRoute] long eventOccurrenceId)
+        {
+            var log = await _mediator.Send(new GetReservationsQuery { EventOccurrenceId = eventOccurrenceId });
+            return Ok(log);
         }
     }
 }

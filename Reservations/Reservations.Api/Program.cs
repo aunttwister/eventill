@@ -21,8 +21,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddPersistance(builder.Configuration);
 builder.Services.AddApplication(builder.Configuration);
+builder.Services.AddPersistance(builder.Configuration);
 
 var app = builder.Build();
 

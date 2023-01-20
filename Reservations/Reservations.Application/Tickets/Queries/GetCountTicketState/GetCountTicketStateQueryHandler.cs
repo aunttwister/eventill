@@ -31,7 +31,9 @@ namespace Reservations.Application.Tickets.Queries.GetCountTicketState
         public async Task<TicketsStateDto> Handle(GetCountTicketStateQuery request, CancellationToken cancellationToken)
         {
             IEnumerable<Ticket> reqestedStateTickets = await _dbContext.Tickets
-                .Where(t => t.TicketState == request.TicketState.StringToTicketState())
+                .Where(t => t.EventOccurenceId == request.EventOccurrenceId 
+                 && t.TicketState == request.TicketState.StringToTicketState()
+                 && !t.IsDeleted)
                 .ToListAsync(cancellationToken);
 
             return _mapper.Map<TicketsStateDto>(reqestedStateTickets);

@@ -15,5 +15,6 @@ namespace Reservations.Application.Reservations.Commands.CreateReservation
         public string LastName { get; set; }
         public string Email { get; set; }
         public int TicketCount { get; set; }
+        public long EventOccurrenceId { get; set; }
     }
 }

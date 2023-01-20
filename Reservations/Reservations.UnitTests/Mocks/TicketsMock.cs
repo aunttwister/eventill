@@ -23,21 +23,24 @@ namespace Reservations.UnitTests.Mocks
         public List<Ticket> InitializeData()
         {
             return new List<Ticket> {
-                new Ticket { Id = 1, Price = 1499.99m, TicketState = TicketState.Available },
-                new Ticket { Id = 2, Price = 1499.99m, TicketState = TicketState.Available },
-                new Ticket { Id = 3, Price = 1499.99m, TicketState = TicketState.Available },
-                new Ticket { Id = 4, Price = 1499.99m, TicketState = TicketState.Available },
-                new Ticket { Id = 5, Price = 1499.99m, TicketState = TicketState.Available },
-                new Ticket { Id = 6, Price = 1499.99m, TicketState = TicketState.Unavailable },
-                new Ticket { Id = 7, Price = 1499.99m, TicketState = TicketState.Unavailable },
-                new Ticket { Id = 8, Price = 1499.99m, TicketState = TicketState.Unavailable },
-                new Ticket { Id = 9, Price = 1499.99m, TicketState = TicketState.Reserved },
-                new Ticket { Id = 10, Price = 1499.99m, TicketState = TicketState.Reserved },
-                new Ticket { Id = 11, Price = 1499.99m, TicketState = TicketState.Reserved },
-                new Ticket { Id = 12, Price = 1499.99m, TicketState = TicketState.Reserved },
-                new Ticket { Id = 13, Price = 1499.99m, TicketState = TicketState.Sold },
-                new Ticket { Id = 14, Price = 1499.99m, TicketState = TicketState.Sold },
-                new Ticket { Id = 15, Price = 1499.99m, TicketState = TicketState.Sold }
+                new Ticket { Id = 1, Price = 1499.99m, TicketState = TicketState.Available, EventOccurenceId = 1},
+                new Ticket { Id = 2, Price = 1499.99m, TicketState = TicketState.Available, EventOccurenceId = 1},
+                new Ticket { Id = 3, Price = 1499.99m, TicketState = TicketState.Available, EventOccurenceId = 1},
+                new Ticket { Id = 4, Price = 1499.99m, TicketState = TicketState.Available, EventOccurenceId = 1},
+                new Ticket { Id = 5, Price = 1499.99m, TicketState = TicketState.Available, EventOccurenceId = 1},
+                new Ticket { Id = 6, Price = 1499.99m, TicketState = TicketState.Unavailable, EventOccurenceId = 1},
+                new Ticket { Id = 7, Price = 1499.99m, TicketState = TicketState.Unavailable, EventOccurenceId = 1},
+                new Ticket { Id = 8, Price = 1499.99m, TicketState = TicketState.Unavailable, EventOccurenceId = 1},
+                new Ticket { Id = 9, Price = 1499.99m, TicketState = TicketState.Reserved, EventOccurenceId = 1, ReservationId = 1 },
+                new Ticket { Id = 10, Price = 1499.99m, TicketState = TicketState.Reserved, EventOccurenceId = 1, ReservationId = 1 },
+                new Ticket { Id = 11, Price = 1499.99m, TicketState = TicketState.Reserved, EventOccurenceId = 1, ReservationId = 3 },
+                new Ticket { Id = 12, Price = 1499.99m, TicketState = TicketState.Reserved, EventOccurenceId = 1, ReservationId = 3 },
+                new Ticket { Id = 10, Price = 1499.99m, TicketState = TicketState.Reserved, EventOccurenceId = 2, ReservationId = 2 },
+                new Ticket { Id = 11, Price = 1499.99m, TicketState = TicketState.Reserved, EventOccurenceId = 2, ReservationId = 2 },
+                new Ticket { Id = 12, Price = 1499.99m, TicketState = TicketState.Reserved, EventOccurenceId = 2, ReservationId = 2 },
+                new Ticket { Id = 13, Price = 1499.99m, TicketState = TicketState.Sold, EventOccurenceId = 1 },
+                new Ticket { Id = 14, Price = 1499.99m, TicketState = TicketState.Sold, EventOccurenceId = 1 },
+                new Ticket { Id = 15, Price = 1499.99m, TicketState = TicketState.Sold, EventOccurenceId = 1 }
             };
         }
     }

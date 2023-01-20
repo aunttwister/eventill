@@ -14,9 +14,6 @@ namespace Reservations.Persistance.Configurations
         public override void ConfigureAuditableEntity(EntityTypeBuilder<EventQuestion> builder)
         {
             builder.HasKey(eq => eq.Id);
-            builder.Property(eq => eq.Active)
-                .HasColumnType("tinyint")
-                .IsRequired();
             builder.Property(eq => eq.QuestionId)
                 .IsRequired();
             builder.HasOne(eq => eq.Event)

@@ -12,7 +12,7 @@ namespace Reservations.Domain
     {
         public Ticket()
         {
-            TicketExtensions = new HashSet<TicketExtension>();
+            //TicketExtensions = new HashSet<TicketExtension>();
         }
         public long Id { get; set; }
         public TicketState TicketState { get; set; }
@@ -21,6 +21,6 @@ namespace Reservations.Domain
         public Reservation Reservation { get; set; }
         public long? EventOccurenceId { get; set; }
         public EventOccurrence EventOccurence { get; set; }
-        public ICollection<TicketExtension> TicketExtensions { get; set; }
+        //public ICollection<TicketExtension> TicketExtensions { get; set; }
     }
 }

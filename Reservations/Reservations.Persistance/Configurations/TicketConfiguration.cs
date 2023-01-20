@@ -28,9 +28,9 @@ namespace Reservations.Persistance.Configurations
                 .WithMany(r => r.Tickets)
                 .HasForeignKey(t => t.EventOccurenceId)
                 .IsRequired(false);
-            builder.HasMany(t => t.TicketExtensions)
-                .WithOne(te => te.Ticket)
-                .IsRequired();
+            //builder.HasMany(t => t.TicketExtensions)
+            //    .WithOne(te => te.Ticket)
+            //    .IsRequired();
         }
     }
 }

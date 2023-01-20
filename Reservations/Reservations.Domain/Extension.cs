@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Reservations.Domain
 {
-    public class Extension : AuditableEntity
+    /*public class Extension : AuditableEntity
     {
         public Extension()
         {
@@ -16,5 +16,5 @@ namespace Reservations.Domain
         public string Name { get; set; }
         public decimal Price { get; set; }
         public ICollection<TicketExtension> TicketExtensions { get; set; }
-    }
+    }*/
 }

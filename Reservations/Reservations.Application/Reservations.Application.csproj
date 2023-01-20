@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Reservations\Queries\" />
     <Folder Include="Tickets\Commands\CreateTicket\" />
   </ItemGroup>
 

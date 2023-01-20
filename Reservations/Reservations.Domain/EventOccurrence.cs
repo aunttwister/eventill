@@ -17,7 +17,6 @@ namespace Reservations.Domain
         }
         public long Id { get; set; }
         public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
         public long EventId { get; set; }
         public Event Event { get; set; }
         public ICollection<Ticket> Tickets { get; set; }

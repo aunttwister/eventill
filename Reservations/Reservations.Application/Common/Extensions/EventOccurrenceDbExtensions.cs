@@ -24,7 +24,7 @@ namespace Reservations.Application.Common.Extensions
             CancellationToken cancellationToken = default)
         {
             return await eventOccurences
-                .Where(eo => eo.StartTime == eventOccurence.StartTime || eo.EndTime == eventOccurence.EndTime)
+                .Where(eo => eo.StartTime == eventOccurence.StartTime)
                 .CountAsync(cancellationToken) == 1;
         }
     }

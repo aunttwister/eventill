@@ -9,7 +9,6 @@ namespace Reservations.Domain
     public class EventQuestion : AuditableEntity
     {
         public long Id { get; set; }
-        public bool Active { get; set; }
         public long EventId { get; set; }
         public long QuestionId { get; set; }
         public Event Event { get; set; }
