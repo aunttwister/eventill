@@ -20,6 +20,9 @@ namespace Reservations.Persistance.Configurations
                 .IsRequired();
             builder.Property(u => u.LastName)
                 .IsRequired();
+            builder.Property(u => u.PhoneNumber)
+                .HasMaxLength(20)
+                .IsRequired(false);
             builder.HasMany(u => u.Reservations)
                    .WithOne(u => u.User);
             builder.Property(u => u.RoleId)

@@ -42,7 +42,8 @@ namespace Reservations.Application.Reservations.Commands.CreateReservation
             User user = await _mediator.Send(new CreateGuestUserCommand(
                 request.FirstName,
                 request.LastName,
-                request.Email), cancellationToken);
+                request.Email,
+                request.PhoneNumber), cancellationToken);
 
             Reservation reservation = _mapper.Map<Reservation>(request);
 

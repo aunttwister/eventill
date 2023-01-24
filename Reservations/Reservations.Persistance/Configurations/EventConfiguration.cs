@@ -15,6 +15,12 @@ namespace Reservations.Persistance.Configurations
         public override void ConfigureAuditableEntity(EntityTypeBuilder<Event> builder)
         {
             builder.HasKey(e => e.Id);
+            builder.Property(e => e.Name)
+                .HasMaxLength(255)
+                .IsRequired();
+            builder.Property(e => e.DirectorName)
+                .HasMaxLength(128)
+                .IsRequired();
             builder.Property(e => e.Description)
                 .HasMaxLength(255)
                 .IsRequired(); ;
