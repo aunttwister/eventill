@@ -42,9 +42,12 @@ namespace Reservations.Application.Events.Commands.EditEvent
                     _eventSetupService.InitializeTickets(request.TicketCount, request.TicketPrice));
             }
 
-            newEvent.Questions.Clear();
-            newEvent.Questions = await _eventSetupService
-                .FilterQuestionsAsync(newEvent.Questions, cancellationToken);
+            if (newEvent.Questions is not null && newEvent.Questions.Count > 0)
+            {
+                newEvent.Questions.Clear();
+                newEvent.Questions = await _eventSetupService
+                    .FilterQuestionsAsync(newEvent.Questions, cancellationToken);
+            }
 
             _dbContext.Events.Update(newEvent);
 

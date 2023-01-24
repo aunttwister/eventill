@@ -40,8 +40,7 @@ namespace Reservations.Application.Reservations.Commands.CreateReservation
                 throw new OrderExceedsAvailabileAmountException($"Order exceeds available number of {nameof(Ticket)}/s.");
 
             User user = await _mediator.Send(new CreateGuestUserCommand(
-                request.FirstName,
-                request.LastName,
+                request.Name,
                 request.Email,
                 request.PhoneNumber), cancellationToken);
 

@@ -32,9 +32,9 @@ namespace Reservations.UnitTests.Mocks
             Role roleAdmin = roles.First(r => r.Name == "Admin");
 
             return new List<User> {
-                    new User { Id = new Guid("08d99adb-cc82-447e-8238-528f0668d03d"), FirstName = "John", LastName = "Doe", Email = "john@doe.com", Role = roleGuest, RoleId = roleGuest.Id },
-                    new User { Id = new Guid("08d9a2c1-0527-4965-8b2f-1a8f8e775d1f"), FirstName = "Jane", LastName = "Doe", Email = "jane@doe.com", Role = roleAdmin, RoleId = roleAdmin.Id },
-                    new User { Id = new Guid("05d9b7c1-0527-4122-8b2f-1a8f8e375d1f"), FirstName = "Jack", LastName = "Doe", Email = "jack@doe.com", Role = roleGuest, RoleId = roleGuest.Id }
+                    new User { Id = new Guid("08d99adb-cc82-447e-8238-528f0668d03d"), Name = "John Doe", Email = "john@doe.com", Role = roleGuest, RoleId = roleGuest.Id },
+                    new User { Id = new Guid("08d9a2c1-0527-4965-8b2f-1a8f8e775d1f"), Name = "Jane Doe", Email = "jane@doe.com", Role = roleAdmin, RoleId = roleAdmin.Id },
+                    new User { Id = new Guid("05d9b7c1-0527-4122-8b2f-1a8f8e375d1f"), Name = "Jack Doe", Email = "jack@doe.com", Role = roleGuest, RoleId = roleGuest.Id }
             };
         }
     }

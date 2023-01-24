@@ -49,8 +49,7 @@ namespace Reservations.UnitTests.Reservations.Commands
             mockDateTime.Setup(mock => mock.UtcNow).Returns(() => DateTime.UtcNow);
 
             string userEmail = "member1@example.com";
-            string firstName = "Member";
-            string lastName = "Example";
+            string name = "Member";
 
             var mockUserService = new Mock<ICurrentUserService>();
             mockUserService.Setup(mock => mock.Email).Returns(() => userEmail);
@@ -61,8 +60,7 @@ namespace Reservations.UnitTests.Reservations.Commands
             var result = await handler.Handle(new CreateReservationCommand
             {
                 Email = userEmail,
-                FirstName = firstName,
-                LastName = lastName,
+                Name = name,
                 TicketCount = 1
 
             }, new CancellationToken());
@@ -85,8 +83,7 @@ namespace Reservations.UnitTests.Reservations.Commands
             mockDateTime.Setup(mock => mock.UtcNow).Returns(() => DateTime.UtcNow);
 
             string userEmail = "member1@example.com";
-            string firstName = "Member";
-            string lastName = "Example";
+            string name = "Member";
 
             var mockUserService = new Mock<ICurrentUserService>();
             mockUserService.Setup(mock => mock.Email).Returns(() => userEmail);
@@ -99,8 +96,7 @@ namespace Reservations.UnitTests.Reservations.Commands
             async Task result() => await handler.Handle(new CreateReservationCommand
             {
                 Email = userEmail,
-                FirstName = firstName,
-                LastName = lastName,
+                Name = name,
                 TicketCount = 20
 
             }, new CancellationToken());

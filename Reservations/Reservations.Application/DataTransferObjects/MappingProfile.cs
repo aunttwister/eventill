@@ -16,8 +16,7 @@ namespace Reservations.Application.DataTransferObjects
         {
             CreateMap<User, UserDto>();
             CreateMap<Reservation, ReservationDto>()
-                .ForMember(rc => rc.FirstName, opts => opts.MapFrom(r => r.User.FirstName))
-                .ForMember(rc => rc.LastName, opts => opts.MapFrom(r => r.User.LastName))
+                .ForMember(rc => rc.Name, opts => opts.MapFrom(r => r.User.Name))
                 .ForMember(rc => rc.Email, opts => opts.MapFrom(r => r.User.Email))
                 .ForMember(rc => rc.TicketCount, opts => opts.MapFrom(r => r.Tickets.Count));
             CreateMap<Question, QuestionDto>();

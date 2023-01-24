@@ -48,8 +48,9 @@ namespace Reservations.Application.Events.Commands.CreateEvent
                     _eventSetupService.InitializeTickets(request.TicketCount, request.TicketPrice));
             }
 
-            newEvent.Questions = await _eventSetupService
-                .FilterQuestionsAsync(newEvent.Questions, cancellationToken);
+            if (newEvent.Questions is not null || newEvent.Questions.Count > 0)
+                newEvent.Questions = await _eventSetupService
+                    .FilterQuestionsAsync(newEvent.Questions, cancellationToken);
 
             _dbContext.Events.Add(newEvent);
 

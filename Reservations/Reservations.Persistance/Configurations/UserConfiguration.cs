@@ -16,9 +16,7 @@ namespace Reservations.Persistance.Configurations
             builder.Property(u => u.Email)
                 .HasMaxLength(128)
                 .IsRequired();
-            builder.Property(u => u.FirstName)
-                .IsRequired();
-            builder.Property(u => u.LastName)
+            builder.Property(u => u.Name)
                 .IsRequired();
             builder.Property(u => u.PhoneNumber)
                 .HasMaxLength(20)
