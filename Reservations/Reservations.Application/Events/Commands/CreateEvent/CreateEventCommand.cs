@@ -14,6 +14,7 @@ namespace Reservations.Application.Events.Commands.CreateEvent
     public class CreateEventCommand : IRequest<EventDto>
     {
         public string Name { get; set; }
+        public string DirectorName { get; set; }
         public string Description { get; set; }
         //Stored as ticks
         public TimeSpan Length { get; set; }

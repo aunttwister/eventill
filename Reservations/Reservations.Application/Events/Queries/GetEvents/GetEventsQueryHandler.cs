@@ -26,7 +26,7 @@ namespace Reservations.Application.Events.Queries.GetEvents
             var eventsQuery = _dbContext.Events.AsNoTracking()
                 .Include(e => e.EventType)
                 .Include(e => e.Questions)
-                .Include(e => e.EventOccurences)
+                .Include(e => e.EventOccurrences)
                 .ThenInclude(eo => eo.Tickets)
                 .Where(e => !e.IsDeleted)
                 .OrderByDescending(e => e.Name).AsQueryable();

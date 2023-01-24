@@ -9,10 +9,9 @@ namespace Reservations.Application.DataTransferObjects
 {
     public class EventOccurrenceDto
     {
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
+        public long Id { get; set; }
+        public string StartTime { get; set; }
         public long EventId { get; set; }
-        public EventDto Event { get; set; }
         public IEnumerable<TicketDto> Tickets { get; set; }
     }
 }

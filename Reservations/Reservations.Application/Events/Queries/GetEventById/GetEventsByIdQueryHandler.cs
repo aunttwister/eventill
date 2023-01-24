@@ -28,7 +28,7 @@ namespace Reservations.Application.Events.Queries.GetEventById
             var eventInstace = await _dbContext.Events.AsNoTracking()
                 .Include(e => e.EventType)
                 .Include(e => e.Questions)
-                .Include(e => e.EventOccurences)
+                .Include(e => e.EventOccurrences)
                 .ThenInclude(eo => eo.Tickets)
                 .FirstOrDefaultAsync(l => l.Id == request.Id && !l.IsDeleted, cancellationToken);
             if (eventInstace == null)

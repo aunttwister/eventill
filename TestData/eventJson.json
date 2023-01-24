@@ -7,17 +7,42 @@
   "eventTypeId": 1,
   "eventQuestions": [
     {
-      "content": "xxxx"
+      "content": "Ime i prezime"
     },
     {
-      "content": "yyyy"
+      "content": "Email adresa"
+    },
+	{
+      "content": "Telefon"
+    },
+	{
+      "content": "Broj karata"
     }
   ],
   "eventOccurences": [
     {
-      "startTime": "2023-01-15T19:27:54.335Z",
-      "endTime": "2023-01-15T19:27:54.335Z",
-      "eventId": 0
+      "startTime": "2023-02-05T18:30Z",
+      "eventId": 1
+    },
+	{
+      "startTime": "2023-02-12T18:30Z",
+      "eventId": 1
+    },
+	{
+      "startTime": "2023-02-19T18:30Z",
+      "eventId": 1
+    },
+	{
+      "startTime": "2023-02-26T18:30Z",
+      "eventId": 1
+    },
+	{
+      "startTime": "2023-03-05T18:30Z",
+      "eventId": 1
+    },
+	{
+      "startTime": "2023-03-12T18:30Z",
+      "eventId": 1
     }
   ]
 }

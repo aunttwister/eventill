@@ -27,7 +27,7 @@ namespace Reservations.Api.Controllers
         [ProducesResponseType(typeof(ReservationDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> CreateReservation([FromBody] CreateReservationCommand request)
+        public async Task<IActionResult> CreateReservationAsync([FromBody] CreateReservationCommand request)
         {
             var log = await _mediator.Send(request);
             return Ok(log);
@@ -37,7 +37,7 @@ namespace Reservations.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> ConfirmPaymentReservations([FromBody] ConfirmPaymentCompletedCommand request)
+        public async Task<IActionResult> ConfirmPaymentReservationsAsync([FromBody] ConfirmPaymentCompletedCommand request)
         {
             await _mediator.Send(request);
             return NoContent();
@@ -47,7 +47,7 @@ namespace Reservations.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> DeleteReservation([FromRoute] long id)
+        public async Task<IActionResult> DeleteReservationAsync([FromRoute] long id)
         {
             await _mediator.Send(new DeleteReservationCommand { Id = id });
             return NoContent();
@@ -57,7 +57,7 @@ namespace Reservations.Api.Controllers
         [ProducesResponseType(typeof(List<ReservationDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetReservations([FromRoute] long eventOccurrenceId)
+        public async Task<IActionResult> GetReservationsAsync([FromRoute] long eventOccurrenceId)
         {
             var log = await _mediator.Send(new GetReservationsQuery { EventOccurrenceId = eventOccurrenceId });
             return Ok(log);

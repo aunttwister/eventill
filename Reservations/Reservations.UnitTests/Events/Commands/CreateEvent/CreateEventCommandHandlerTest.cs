@@ -104,22 +104,22 @@ namespace Reservations.UnitTests.Events.Commands.CreateEvent
 
             Assert.IsType<EventTypeDto>(result.EventType);
 
-            Assert.IsType<EventOccurrenceDto>(result.EventOccurences.First());
+            Assert.IsType<EventOccurrenceDto>(result.EventOccurrences.First());
 
             Assert.IsType<QuestionDto>(result.Questions.First());
 
-            Assert.IsType<TicketDto>(result.EventOccurences.First().Tickets.First());
+            Assert.IsType<TicketDto>(result.EventOccurrences.First().Tickets.First());
 
             //Check if there is an expected number of entities in a response.
 
             Assert.True(
-                Assert.IsType<EventOccurrenceDto>(result.EventOccurences.First()).Tickets.Count() == mockRequest.TicketCount);
+                Assert.IsType<EventOccurrenceDto>(result.EventOccurrences.First()).Tickets.Count() == mockRequest.TicketCount);
 
             Assert.True(
                 Assert.IsType<EventDto>(result).Questions.Count() == mockRequest.EventQuestions.Count());
 
             Assert.True(
-                Assert.IsType<EventDto>(result).EventOccurences.Count() == mockRequest.EventOccurences.Count());
+                Assert.IsType<EventDto>(result).EventOccurrences.Count() == mockRequest.EventOccurences.Count());
         }
 
         [Fact]

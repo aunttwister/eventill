@@ -25,7 +25,7 @@ namespace Reservations.Persistance.Configurations
                 .WithMany(et => et.Events)
                 .HasForeignKey(e => e.EventTypeId)
                 .IsRequired();
-            builder.HasMany(e => e.EventOccurences)
+            builder.HasMany(e => e.EventOccurrences)
                 .WithOne(eo => eo.Event)
                 .IsRequired();
             builder.HasMany(e => e.Questions)

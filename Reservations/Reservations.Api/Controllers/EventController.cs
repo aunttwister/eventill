@@ -25,17 +25,17 @@ namespace Reservations.Api.Controllers
         [ProducesResponseType(typeof(EventDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> CreateEvent([FromBody] CreateEventCommand request)
+        public async Task<IActionResult> CreateEventAsync([FromBody] CreateEventCommand request)
         {
             var response = await _mediator.Send(request);
-            return CreatedAtAction(nameof(GetEvent), new { Id = response.Id });
+            return CreatedAtAction(nameof(GetEventAsync), new { Id = response.Id });
         }
 
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> EditEvent([FromRoute] long id, [FromBody] EditEventCommand request)
+        public async Task<IActionResult> EditEventAsync([FromRoute] long id, [FromBody] EditEventCommand request)
         {
             if (id != request.Id)
             {
@@ -50,7 +50,7 @@ namespace Reservations.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> DeleteEvent([FromRoute] long id)
+        public async Task<IActionResult> DeleteEventAsync([FromRoute] long id)
         {
             await _mediator.Send(new DeleteEventCommand { Id = id });
             return NoContent();
@@ -59,7 +59,7 @@ namespace Reservations.Api.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(List<EventDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetEvents([FromQuery] GetEventsQuery request)
+        public async Task<IActionResult> GetEventsAsync([FromQuery] GetEventsQuery request)
         {
             var logs = await _mediator.Send(request);
             return Ok(logs);
@@ -69,7 +69,7 @@ namespace Reservations.Api.Controllers
         [ProducesResponseType(typeof(EventDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetEvent(long id)
+        public async Task<IActionResult> GetEventAsync(long id)
         {
             var log = await _mediator.Send(new GetEventsByIdQuery { Id = id });
             return Ok(log);

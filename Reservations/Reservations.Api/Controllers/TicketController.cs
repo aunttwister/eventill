@@ -22,7 +22,7 @@ namespace Reservations.Api.Controllers
         [HttpGet("{eventOccurrenceId}/{ticketState}")]
         [ProducesResponseType(typeof(TicketsStateDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetCountTicketState([FromRoute] long eventOccurrenceId, [FromRoute] string ticketState)
+        public async Task<IActionResult> GetCountTicketStateAsync([FromRoute] long eventOccurrenceId, [FromRoute] string ticketState)
         {
 
             TicketsStateDto ticketStateResponse = await _mediator.Send(new GetCountTicketStateQuery(eventOccurrenceId, ticketState));
@@ -33,7 +33,7 @@ namespace Reservations.Api.Controllers
         [ProducesResponseType(typeof(List<TicketDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> CreateTickets([FromBody] CreateMultipleTicketsCommand request)
+        public async Task<IActionResult> CreateTicketsAsync([FromBody] CreateMultipleTicketsCommand request)
         {
             var log = await _mediator.Send(request);
             return Ok(log);

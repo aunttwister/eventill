@@ -16,11 +16,11 @@ namespace Reservations.Application.Events
         {
             CreateMap<CreateEventCommand, Event>()
                 .ForMember(m => m.Length, opts => opts.MapFrom(e => e.Length.Ticks))
-                .ForMember(m => m.EventOccurences, opts => opts.MapFrom(e => e.EventOccurences.ToList()))
+                .ForMember(m => m.EventOccurrences, opts => opts.MapFrom(e => e.EventOccurences.ToList()))
                 .ForMember(m => m.Questions, opts => opts.MapFrom(e => e.EventQuestions.ToList()));
             CreateMap<EditEventCommand, Event>()
                 .ForMember(m => m.Length, opts => opts.MapFrom(e => e.Length.Ticks))
-                .ForMember(m => m.EventOccurences, opts => opts.MapFrom(e => e.EventOccurences.ToList()))
+                .ForMember(m => m.EventOccurrences, opts => opts.MapFrom(e => e.EventOccurences.ToList()))
                 .ForMember(m => m.Questions, opts => opts.MapFrom(e => e.EventQuestions.ToList()));
         }
     }

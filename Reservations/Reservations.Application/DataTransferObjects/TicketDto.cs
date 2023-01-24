@@ -16,7 +16,6 @@ namespace Reservations.Application.DataTransferObjects
         public long? ReservationId { get; set; }
         public Reservation Reservation { get; set; }
         public long EventOccurenceId { get; set; }
-        public EventOccurrence EventOccurence { get; set; }
         //public ICollection<TicketExtension> TicketExtensions { get; set; }
     }
 }

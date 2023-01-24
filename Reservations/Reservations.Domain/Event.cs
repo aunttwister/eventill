@@ -11,16 +11,17 @@ namespace Reservations.Domain
         public Event()
         {
             Questions = new HashSet<Question>();
-            EventOccurences = new HashSet<EventOccurrence>();
+            EventOccurrences = new HashSet<EventOccurrence>();
         }
         public long Id { get; set; }
         public string Name { get; set; }
+        public string DirectorName { get; set; }
         public string Description { get; set; }
         //Stored as ticks
         public long Length { get; set; }
         public int EventTypeId { get; set; }
         public EventType EventType { get; set; }
         public ICollection<Question> Questions { get; set; }
-        public ICollection<EventOccurrence> EventOccurences { get; set; }
+        public ICollection<EventOccurrence> EventOccurrences { get; set; }
     }
 }

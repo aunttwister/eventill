@@ -42,7 +42,7 @@ namespace Reservations.Application.Events.Commands.CreateEvent
                 if (await _dbContext.EventTypes.EventTypeExistsAsync(newEvent.EventType, cancellationToken))
                     throw new AlreadyExistsException($"{nameof(EventType)} with the same name already exists.");
 
-            foreach (EventOccurrence eventOccurrence in newEvent.EventOccurences)
+            foreach (EventOccurrence eventOccurrence in newEvent.EventOccurrences)
             {
                 eventOccurrence.Tickets.AddRange(
                     _eventSetupService.InitializeTickets(request.TicketCount, request.TicketPrice));
