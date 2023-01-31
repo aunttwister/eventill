@@ -1,48 +1,29 @@
 {
-  "name": "Event1",
+  "name": "Mišolovka",
+  "directorName": "Sofija Ristić",
   "description": "Description",
   "length": "01:30:00",
   "ticketCount": 15,
   "ticketPrice": 1499,
   "eventTypeId": 1,
-  "eventQuestions": [
-    {
-      "content": "Ime i prezime"
-    },
-    {
-      "content": "Email adresa"
-    },
-	{
-      "content": "Telefon"
-    },
-	{
-      "content": "Broj karata"
-    }
-  ],
   "eventOccurences": [
     {
-      "startTime": "2023-02-05T18:30Z",
-      "eventId": 1
+      "startTime": "2023-02-05T18:30Z"
     },
 	{
-      "startTime": "2023-02-12T18:30Z",
-      "eventId": 1
+      "startTime": "2023-02-12T18:30Z"
     },
 	{
-      "startTime": "2023-02-19T18:30Z",
-      "eventId": 1
+      "startTime": "2023-02-19T18:30Z"
     },
 	{
-      "startTime": "2023-02-26T18:30Z",
-      "eventId": 1
+      "startTime": "2023-02-26T18:30Z"
     },
 	{
-      "startTime": "2023-03-05T18:30Z",
-      "eventId": 1
+      "startTime": "2023-03-05T18:30Z"
     },
 	{
-      "startTime": "2023-03-12T18:30Z",
-      "eventId": 1
+      "startTime": "2023-03-12T18:30Z"
     }
   ]
 }
