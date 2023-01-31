@@ -1,5 +1,10 @@
 using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using Reservations.Api.Authorization;
+using Reservations.Api.Middlewares;
 using Reservations.Application;
 using Reservations.Persistance;
 
@@ -16,7 +21,7 @@ var builder = WebApplication.CreateBuilder(args);
     googleOptions.ClientSecret = "";//Authentication:Google:ClientSecret
 });*/
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options => options.SuppressAsyncSuffixInActionNames = false);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -26,6 +31,36 @@ builder.Services.AddPersistance(builder.Configuration);
 
 builder.Services.AddCors();
 
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+            .AddJwtBearer(options =>
+            {
+                options.Authority = builder.Configuration["JWTAuthentication:Authority"];
+
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidAudiences = builder.Configuration.GetSection("JWTAuthentication")?
+                    .GetSection("Audiences")?
+                    .GetChildren()?.Select(x => x.Value)?
+                    .ToList()
+                };
+            });
+
+builder.Services.AddAuthorization(options =>
+{
+    options.DefaultPolicy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .AddRequirements(new ProfileAuthorizationRequirement())
+        .Build();
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -33,7 +68,10 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseDeveloperExceptionPage();
 }
+
+app.UseCustomExceptionHandler();
 
 app.UseHttpsRedirection();
 
