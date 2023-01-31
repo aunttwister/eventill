@@ -1,0 +1,6 @@
+.main-container{
+    justify-content: start;
+    height: 90vh;
+    width: 80vw;
+    overflow-y: scroll;
+}

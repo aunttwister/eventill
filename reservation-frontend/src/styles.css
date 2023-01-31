@@ -1,0 +1,21 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+    height: 100% !important;
+    font-family: 'Montserrat', sans-serif;
+    text-shadow: 0.5px 0.5px 1px black;
+    overflow: hidden;
+    background-attachment: fixed;
+    background-repeat: repeat-x;
+    background-image: url(./assets/dreamstime_xxl_8008472x16x9.jpg);
+    background-size: cover;
+}
+  
+@media screen and (max-width: 1024px) { /* Specific to this particular image */
+    body {
+        background-attachment: fixed;
+        background-repeat: repeat-x;
+        background-image: url(./assets/dreamstime_xxl_8008472xmobile.jpg);
+        background-size: cover;
+        overflow: hidden !important;
+    }
+}

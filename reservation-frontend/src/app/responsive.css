@@ -1,0 +1,36 @@
+@media (min-width: 764px) and (max-width: 1919px) {
+    .main-container {
+      width: 50vh;
+      height: 55vw;
+    }
+  }
+  
+  @media (min-height: 764px) {
+    
+  }
+  
+  @media (max-width: 764px) {
+      .main-container {
+          width: 90vw;
+          height: 55vh;
+          margin-left: 0.7vh
+        }
+  }
+  
+  @media (max-width: 480px) {
+    .main-container {
+      width: 90vw;
+      height: 60vh;
+    }
+  }
+  
+  @media (min-width: 300px) and (max-width: 400px) {
+    .main-container {
+      width: 80vw;
+      height: 55vh;
+    }
+  
+    .grid-div {
+      grid-template-columns: 1fr;
+    }
+  }

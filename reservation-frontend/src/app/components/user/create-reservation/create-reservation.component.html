@@ -1,0 +1,133 @@
+<div>
+    <div class="align-center">
+        <div>
+            <div class="basic-info">
+                <p class="info-data align-center default-font">PREDSTAVA</p>
+                <h3 class="select-date-title align-center bold-font">{{eventName.toUpperCase()}}</h3>
+                <p class="info-data align-center default-font">REŽIJA I ADAPTACIJA - SOFIJA RISTIĆ</p>
+            </div>
+            <div class="main-container">
+                <div class="bold-font align-center">
+                    IZABERITE DATUM:
+                </div>
+                <hr>
+                <div class="align-center" >
+                    <form (ngSubmit)="onSubmit()" #reservationForm="ngForm">
+                        <div class="form-group">
+                            <input 
+                                [(ngModel)]="newReservation.name" 
+                                class="bold-font" 
+                                type="text" 
+                                placeholder="IME I PREZIME*" 
+                                required
+                                id="name"
+                                name="name"
+                                #name="ngModel">
+        
+                            <div 
+                                [hidden]="name.valid || name.pristine"
+                                class="alert-font">
+                                <i>Ime i prezime su obavezni.</i>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input 
+                                [(ngModel)]="newReservation.email"
+                                class="bold-font" 
+                                type="email"
+                                placeholder="EMAIL ADRESA*" 
+                                required
+                                id="email"
+                                name="email"
+                                #email="ngModel">
+        
+                            <div 
+                                [hidden]="email.valid || email.pristine"
+                                class="alert-font">
+                                <i>Email adresa je obavezna.</i>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input 
+                            [(ngModel)]="newReservation.phoneNumber" 
+                            class="bold-font" 
+                            type="text"
+                            placeholder="TELEFON" 
+                            id="phoneNumber"
+                            name="phoneNumber"
+                            #phoneNumber="ngModel">
+                        </div>
+                        <div class="form-group" style="
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;">
+                            
+                            <label for="quantity" class="bold-font align-center" style="margin-right: 10px; margin-bottom: 10px;">BROJ KARATA*</label>
+                            <div class="number-input" style="display: flex; justify-content: center;">
+                                <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" type="button"></button>
+                                <input 
+                                    class="quantity bold-font" 
+                                    min="1" 
+                                    max="8"
+                                    name="quantity" 
+                                    value="1" 
+                                    type="number" 
+                                    required 
+                                    id="ticketCount" 
+                                    name="ticketCount" 
+                                    [(ngModel)]="newReservation.ticketCount" 
+                                    #ticketCount="ngModel"
+                                    style="margin-top: 4px; margin-bottom: 4px;">
+                                <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" type="button"></button>
+                            </div>
+                            <!-- <input 
+                            [(ngModel)]="newReservation.ticketCount" 
+                            class="bold-font" 
+                            type="number" 
+                            placeholder="BROJ KARATA*" 
+                            required
+                            id="ticketCount"
+                            name="ticketCount"
+                            min="1"
+                            #ticketCount="ngModel"> -->
+        
+                            <div 
+                                [hidden]="ticketCount.valid || ticketCount.pristine || ticketCount.value >= 8"
+                                class="alert-font">
+                                <i>Broj karata je obavezan.</i>
+                            </div>
+                            <div 
+                                [hidden]="ticketCount.valid || ticketCount.pristine || ticketCount.value < 8"
+                                class="alert-font">
+                                <i>Maksimalni broj karata je 8.</i>
+                            </div>
+                        </div>
+                        <div class="default-font submit-button">
+                            <button 
+                                type="submit" 
+                                class="btn btn-data" 
+                                [disabled]="!reservationForm.form.valid">
+                                REZERVIŠI KARTU
+                            </button>
+                        </div>
+                        <hr class="form-hr">
+                        <div *ngIf="ticketInfoIsLoaded">
+                            <div *ngIf="ticketState.count != 0; else tickets_unavailable">
+                                <div class="bold-font align-center">
+                                    Cena karte: {{this.ticketState.price}} RSD | Dostupno: {{this.ticketState.count}}
+                                </div>
+                            </div>
+                            <div>
+                                <ng-template #tickets_unavailable>
+                                    <div class="bold-font align-center">
+                                        Cena karte: Nema karata na stanju. | Dostupno: {{this.ticketState.count}}
+                                    </div>
+                                </ng-template>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
