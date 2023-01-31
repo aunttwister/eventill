@@ -14,12 +14,14 @@ namespace Reservations.Domain
         public EventOccurrence()
         {
             Tickets = new HashSet<Ticket>();
+            Reservations = new HashSet<Reservation>();
         }
         public long Id { get; set; }
         public DateTime StartTime { get; set; }
         public long EventId { get; set; }
         public Event Event { get; set; }
         public ICollection<Ticket> Tickets { get; set; }
+        public ICollection<Reservation> Reservations { get; set; }
 
     }
 }

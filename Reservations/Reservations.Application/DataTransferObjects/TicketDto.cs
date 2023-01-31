@@ -14,7 +14,7 @@ namespace Reservations.Application.DataTransferObjects
         public TicketState TicketState { get; set; }
         public decimal Price { get; set; }
         public long? ReservationId { get; set; }
-        public Reservation Reservation { get; set; }
+        public ReservationDto Reservation { get; set; }
         public long EventOccurenceId { get; set; }
         //public ICollection<TicketExtension> TicketExtensions { get; set; }
     }

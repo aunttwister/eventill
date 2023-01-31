@@ -15,6 +15,8 @@ namespace Reservations.Application.Common.Extensions
             IEnumerable<Question> newQuestions,
             CancellationToken cancellationToken = default)
         {
+            if (!questions.Any())
+                return newQuestions;
             return await Task.Run(() => newQuestions.ExceptBy(questions.Select(q => q.Content), q => q.Content), cancellationToken);
         }
 

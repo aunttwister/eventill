@@ -103,7 +103,7 @@ namespace Reservations.UnitTests.Reservations.Commands
 
             //assert
 
-            await Assert.ThrowsAsync<OrderExceedsAvailabileAmountException>(result);
+            await Assert.ThrowsAsync<BadRequestException>(result);
         }
     }
 }

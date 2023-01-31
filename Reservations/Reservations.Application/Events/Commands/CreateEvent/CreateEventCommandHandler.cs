@@ -48,7 +48,7 @@ namespace Reservations.Application.Events.Commands.CreateEvent
                     _eventSetupService.InitializeTickets(request.TicketCount, request.TicketPrice));
             }
 
-            if (newEvent.Questions is not null || newEvent.Questions.Count > 0)
+            if (newEvent.Questions.Any())
                 newEvent.Questions = await _eventSetupService
                     .FilterQuestionsAsync(newEvent.Questions, cancellationToken);
 

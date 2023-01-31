@@ -15,6 +15,8 @@ namespace Reservations.Application.Common.Extensions
             IEnumerable<EventOccurrence> newEventOccurrences,
             CancellationToken cancellationToken = default)
         {
+            if (!eventOccurrences.Any())
+                return newEventOccurrences;
             return await Task.Run(() => newEventOccurrences.Except(eventOccurrences), cancellationToken);
         }
 

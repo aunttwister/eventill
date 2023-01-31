@@ -12,6 +12,9 @@ namespace Reservations.Application.DataTransferObjects
         public string Name { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
-        public int TicketCount { get; set; }
+        public IEnumerable<TicketDto> Tickets { get; set; }
+        public bool PaymentCompleted { get; set; }
+        public long EventOccurrenceId { get; set; }
+        public EventOccurrenceDto EventOccurrence { get; set; }
     }
 }

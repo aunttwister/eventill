@@ -37,7 +37,7 @@ namespace Reservations.Application.Reservations.Commands.CreateReservation
                 .ToListAsync(cancellationToken);
 
             if (availableTickets.Count() < request.TicketCount)
-                throw new OrderExceedsAvailabileAmountException($"Order exceeds available number of {nameof(Ticket)}/s.");
+                throw new BadRequestException($"Order exceeds available number of {nameof(Ticket)}/s.");
 
             User user = await _mediator.Send(new CreateGuestUserCommand(
                 request.Name,

@@ -21,6 +21,10 @@ namespace Reservations.Persistance.Configurations
             builder.HasMany(r => r.Tickets)
                    .WithOne(t => t.Reservation)
                    .IsRequired();
+            builder.HasOne(r => r.EventOccurrence)
+                   .WithMany(eo => eo.Reservations)
+                   .HasForeignKey(r => r.EventOccurrenceId)
+                   .IsRequired();
         }
     }
 }

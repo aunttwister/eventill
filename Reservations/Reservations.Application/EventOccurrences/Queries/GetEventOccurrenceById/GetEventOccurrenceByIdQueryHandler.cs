@@ -11,32 +11,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Reservations.Application.Events.Queries.GetEventById
+namespace Reservations.Application.EventOccurrences.Queries.GetEventOccurrenceById
 {
-    public class GetEventsByIdQueryHandler : IRequestHandler<GetEventsByIdQuery, EventDto>
+    public class GetEventOccurrenceByIdQueryHandler : IRequestHandler<GetEventOccurrenceByIdQuery, EventOccurrenceDto>
     {
         private readonly IReservationDbContext _dbContext;
         private readonly IMapper _mapper;
 
-        public GetEventsByIdQueryHandler(IReservationDbContext dbContext, IMapper mapper)
+        public GetEventOccurrenceByIdQueryHandler(IReservationDbContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
             _mapper = mapper;
         }
-        public async Task<EventDto> Handle(GetEventsByIdQuery request, CancellationToken cancellationToken)
+        public async Task<EventOccurrenceDto> Handle(GetEventOccurrenceByIdQuery request, CancellationToken cancellationToken)
         {
-            var eventInstace = await _dbContext.Events.AsNoTracking()
-                .Include(e => e.EventType)
-                .Include(e => e.Questions)
-                .Include(e => e.EventOccurrences)
-                .ThenInclude(eo => eo.Tickets)
+            var eventOccurrence = await _dbContext.EventOccurrences.AsNoTracking()
                 .FirstOrDefaultAsync(l => l.Id == request.Id && !l.IsDeleted, cancellationToken);
-            if (eventInstace == null)
+            if (eventOccurrence == null)
             {
                 throw new NotFoundException(nameof(Event), request.Id);
             }
 
-            return _mapper.Map<EventDto>(eventInstace);
+            return _mapper.Map<EventOccurrenceDto>(eventOccurrence);
         }
     }
 }

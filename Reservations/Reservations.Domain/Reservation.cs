@@ -10,6 +10,8 @@
         public Guid UserId { get; set; }
         public User User { get; set; }
         public ICollection<Ticket> Tickets { get; set; }
+        public long EventOccurrenceId { get; set; }
+        public EventOccurrence EventOccurrence { get; set; }
         public bool PaymentCompleted { get; set; }
     }
 }

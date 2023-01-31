@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Reservations.Application.Events.Queries.GetEventById
 {
-    public class GetEventsByIdQuery : IRequest<EventDto>
+    public class GetEventByIdQuery : IRequest<EventDto>
     {
         public long Id { get; set; }
     }
