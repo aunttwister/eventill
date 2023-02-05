@@ -13,7 +13,6 @@ namespace Reservations.Application.Common.Interfaces
         public DbSet<Audit> Audits { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<LoginDetails> LoginDetails { get; set; }
         public DbSet<EventType> EventTypes { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<Question> Questions { get; set; }

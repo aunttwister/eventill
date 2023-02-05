@@ -33,7 +33,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reservations.Domain", "..\R
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Security", "Security", "{7CDEB4EF-99D0-4DAF-ACB7-B6F0FCF9CB6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reservations.Security", "..\Reservations.Security\Reservations.Security.csproj", "{93D41015-1E09-49F8-A3B8-EAADA6245EA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reservations.Security", "..\Reservations.Security\Reservations.Security.csproj", "{93D41015-1E09-49F8-A3B8-EAADA6245EA4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

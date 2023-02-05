@@ -10,8 +10,8 @@ namespace Reservations.Domain
     public class LoginDetails : AuditableEntity
     {
         public long Id { get; set; }
-        public string HashPassword { get; set; }
-        public string Salt { get; set; }
+        public byte[] HashPassword { get; set; }
+        public byte[] Salt { get; set; }
         public Guid UserId { get; set; }
         public User User { get; set; }
     }

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Reservations.Persistance.Configurations
+namespace Reservations.Persistance.Configurations.SecurityConfiguration
 {
     public class LoginDetailsConfiguration : AuditableEntityConfiguration<LoginDetails>
     {
