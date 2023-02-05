@@ -23,19 +23,19 @@ namespace Reservations.Security.Authentication.Commands.AuthenticateUser
             ITokenProviderService tokenProviderService)
         {
             _dbContext = dbContext;
+            _authenticationService = authenticationService;
             _tokenProviderService = tokenProviderService;
         }
 
         public async Task<object> Handle(AuthenticateUserCommand request, CancellationToken cancellationToken)
         {
-            User user = await _dbContext.Users.Include(u => u.LoginDetails).FirstOrDefaultAsync(u => u.Email == request.Email);
+            User user = await _dbContext.Users.Include(u => u.LoginDetails).Include(u => u.Role).FirstOrDefaultAsync(u => u.Email == request.Email);
 
-            byte[] hashPassword = _authenticationService.HashPassword(request.Password, user.LoginDetails.Salt);
+            bool verifyResponse = _authenticationService.Verify(request.Password, user.LoginDetails.Salt, user.LoginDetails.HashPassword);
+            if (verifyResponse == false)
+                throw new UnauthorizedAccessException();
 
-            return new { };
-
-
-
+            return _tokenProviderService.GenerateToken(user.Id, user.Role.Name);
         }
     }
 }

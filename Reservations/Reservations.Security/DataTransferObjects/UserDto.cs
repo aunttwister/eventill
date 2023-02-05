@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Reservations.Application.DataTransferObjects
+namespace Reservations.Security.DataTransferObjects
 {
     public class UserDto
     {

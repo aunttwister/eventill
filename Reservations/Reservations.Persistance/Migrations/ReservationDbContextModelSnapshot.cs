@@ -48,7 +48,7 @@ namespace Reservations.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Audits");
+                    b.ToTable("Audits", (string)null);
                 });
 
             modelBuilder.Entity("Reservations.Domain.Event", b =>
@@ -103,7 +103,7 @@ namespace Reservations.Persistance.Migrations
 
                     b.HasIndex("EventTypeId");
 
-                    b.ToTable("Events");
+                    b.ToTable("Events", (string)null);
                 });
 
             modelBuilder.Entity("Reservations.Domain.EventOccurrence", b =>
@@ -143,7 +143,7 @@ namespace Reservations.Persistance.Migrations
 
                     b.HasIndex("EventId");
 
-                    b.ToTable("EventOccurrences");
+                    b.ToTable("EventOccurrences", (string)null);
                 });
 
             modelBuilder.Entity("Reservations.Domain.EventQuestion", b =>
@@ -179,7 +179,7 @@ namespace Reservations.Persistance.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("EventQuestions");
+                    b.ToTable("EventQuestions", (string)null);
                 });
 
             modelBuilder.Entity("Reservations.Domain.EventType", b =>
@@ -216,7 +216,7 @@ namespace Reservations.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EventTypes");
+                    b.ToTable("EventTypes", (string)null);
                 });
 
             modelBuilder.Entity("Reservations.Domain.LoginDetails", b =>
@@ -264,7 +264,7 @@ namespace Reservations.Persistance.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("LoginDetails");
+                    b.ToTable("LoginDetails", (string)null);
                 });
 
             modelBuilder.Entity("Reservations.Domain.Question", b =>
@@ -301,7 +301,7 @@ namespace Reservations.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Questions");
+                    b.ToTable("Questions", (string)null);
                 });
 
             modelBuilder.Entity("Reservations.Domain.Reservation", b =>
@@ -346,7 +346,7 @@ namespace Reservations.Persistance.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Reservations");
+                    b.ToTable("Reservations", (string)null);
                 });
 
             modelBuilder.Entity("Reservations.Domain.Role", b =>
@@ -383,7 +383,7 @@ namespace Reservations.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
 
                     b.HasData(
                         new
@@ -448,7 +448,7 @@ namespace Reservations.Persistance.Migrations
 
                     b.HasIndex("ReservationId");
 
-                    b.ToTable("Tickets");
+                    b.ToTable("Tickets", (string)null);
                 });
 
             modelBuilder.Entity("Reservations.Domain.User", b =>
@@ -498,7 +498,7 @@ namespace Reservations.Persistance.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("Reservations.Domain.Event", b =>

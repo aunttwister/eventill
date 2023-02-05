@@ -14,19 +14,19 @@ namespace Reservations.Security.Common.Services
 {
     public class TokenProviderService : ITokenProviderService
     {
-        private TokenProviderOptions _options;
+        private readonly TokenProviderOptions _options;
         public TokenProviderService(IOptions<TokenProviderOptions> options)
         {
             _options = options.Value;
         }
-        public string GenerateToken(User user)
+        public object GenerateToken(Guid userId, string roleName)
         {
             DateTime now = DateTime.UtcNow;
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+                new Claim(ClaimTypes.NameIdentifier, userId.ToString())
             };
-            claims.Add(new Claim(ClaimTypes.Role, user.Role.Name));
+            claims.Add(new Claim(ClaimTypes.Role, roleName));
 
             var jwt = new JwtSecurityToken(
                 issuer: _options.Issuer,
@@ -36,7 +36,13 @@ namespace Reservations.Security.Common.Services
                 expires: now.Add(_options.Expiration),
                 signingCredentials: _options.SigningCredentials);
 
-            return new JwtSecurityTokenHandler().WriteToken(jwt);
+            string token = new JwtSecurityTokenHandler().WriteToken(jwt);
+
+            return new 
+            { 
+                access_token = token, 
+                expires_in = (int)_options.Expiration.TotalSeconds 
+            };
         }
 
         public string GenerateRefreshToken(string userId)

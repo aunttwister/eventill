@@ -10,6 +10,6 @@ namespace Reservations.Security.Common.Interfaces
     public interface ITokenProviderService
     {
         public string GenerateRefreshToken(string userId);
-        public string GenerateToken(User user);
+        public object GenerateToken(Guid userId, string roleName);
     }
 }

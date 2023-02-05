@@ -7,6 +7,7 @@ using Reservations.Api.Authorization;
 using Reservations.Api.Middlewares;
 using Reservations.Application;
 using Reservations.Persistance;
+using Reservations.Security;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +28,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddApplication(builder.Configuration);
+builder.Services.AddSecurity(builder.Configuration);
 builder.Services.AddPersistance(builder.Configuration);
 
 builder.Services.AddCors();

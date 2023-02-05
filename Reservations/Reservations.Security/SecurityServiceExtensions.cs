@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Reservations.Application;
 using Reservations.Security.Common.Interfaces;
 using Reservations.Security.Common.Services;
 using System;
@@ -15,8 +16,15 @@ namespace Reservations.Security
 {
     public static class SecurityServiceExtensions
     {
-        public static void AddSecurityExtensions(this IServiceCollection services, IConfiguration configuration)
+        public static void AddSecurity(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddMediatR(options =>
+            {
+                options.AsTransient();
+            },
+            Assembly.GetExecutingAssembly());
+            services.AddAutoMapper(typeof(SecurityServiceExtensions).Assembly);
+
             services.AddTransient<Common.Interfaces.IAuthenticationService, AuthenticationService>();
             services.AddTransient<ITokenProviderService, TokenProviderService>();
         }

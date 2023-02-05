@@ -13,5 +13,7 @@ namespace Reservations.Security.Common.Interfaces
         public DbSet<User> Users { get; set; }
         public DbSet<LoginDetails> LoginDetails { get; set; }
         public DbSet<Role> Roles { get; set; }
+
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }

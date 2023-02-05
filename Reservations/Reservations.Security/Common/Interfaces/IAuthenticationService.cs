@@ -8,8 +8,7 @@ namespace Reservations.Security.Common.Interfaces
 {
     public interface IAuthenticationService
     {
-        public byte[] HashPassword(string password, byte[] salt);
-        public byte[] ToArray();
-        public bool Verify(string password);
+        public (byte[] hashPassword, byte[] salt) GenerateHash(string password);
+        public bool Verify(string password, byte[] salt, byte[] storedHash);
     }
 }
