@@ -22,7 +22,8 @@ namespace Reservations.Application.DataTransferObjects
                 .ForMember(rc => rc.Name, opts => opts.MapFrom(r => r.User.Name))
                 .ForMember(rc => rc.Email, opts => opts.MapFrom(r => r.User.Email))
                 .ForMember(rc => rc.EventOccurrence, opts => opts.Ignore())
-                .ForMember(rc => rc.Tickets, opts => opts.MapFrom(r => r.EventOccurrence.Tickets.Where(t => t.ReservationId == r.Id)));
+                .ForMember(rc => rc.Tickets, opts => opts.MapFrom(r => r.EventOccurrence.Tickets.Where(t => t.ReservationId == r.Id)))
+                .ForMember(rc => rc.TicketCount, opts => opts.MapFrom(r => r.EventOccurrence.Tickets.Where(t => t.ReservationId == r.Id).Count()));
             CreateMap<Question, QuestionDto>();
             CreateMap<EventOccurrence, EventOccurrenceDto>()
                 .ForMember(eo => eo.StartTime, opts => opts.MapFrom(eo => eo.StartTime))

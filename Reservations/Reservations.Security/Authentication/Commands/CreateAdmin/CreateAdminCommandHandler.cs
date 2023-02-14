@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
+using Reservations.Application.Common.Exceptions;
 using Reservations.Domain;
 using Reservations.Security.Common.Extensions;
 using Reservations.Security.Common.Interfaces;
@@ -28,7 +30,12 @@ namespace Reservations.Security.Authentication.Commands.CreateAdmin
         }
         public async Task<UserDto> Handle(CreateAdminCommand request, CancellationToken cancellationToken)
         {
-            User user = _mapper.Map<User>(request);
+            User user = await _dbContext.Users.Include(u => u.Role).FirstOrDefaultAsync(u => u.Email == request.Email);
+
+            if (user != null)
+                throw new BadRequestException($"User with email: {request.Email} already exists with { user.Role.Name } role.");
+
+            user = _mapper.Map<User>(request);
 
             var (hashPassword, salt) = _authenticationService.GenerateHash(request.Password);
             user.LoginDetails = new LoginDetails()

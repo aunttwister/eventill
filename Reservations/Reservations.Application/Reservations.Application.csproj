@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Tickets\Commands\CreateTicket\" />
+    <Compile Remove="Tickets\Commands\CreateTicket\**" />
+    <EmbeddedResource Remove="Tickets\Commands\CreateTicket\**" />
+    <None Remove="Tickets\Commands\CreateTicket\**" />
   </ItemGroup>
 
   <ItemGroup>

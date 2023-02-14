@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Reservations.Application.DataTransferObjects;
 using Reservations.Application.Events.Commands.DeleteEvent;
@@ -6,6 +7,7 @@ using Reservations.Application.Events.Queries.GetEventById;
 using Reservations.Application.Reservations.Commands.ConfirmPaymentCompleted;
 using Reservations.Application.Reservations.Commands.CreateReservation;
 using Reservations.Application.Reservations.Commands.DeleteReservation;
+using Reservations.Application.Reservations.Commands.EditMultipleReservation;
 using Reservations.Application.Reservations.Queries.GetReservations;
 using Reservations.Application.Tickets.Commands.CreateMultipleTickets;
 using Reservations.Application.Tickets.Queries.GetCountTicketState;
@@ -61,6 +63,17 @@ namespace Reservations.Api.Controllers
         {
             var log = await _mediator.Send(new GetReservationsQuery { EventOccurrenceId = eventOccurrenceId });
             return Ok(log);
+        }
+
+        [Authorize]
+        [HttpPost("edit/multiple")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> EditMultipleReservationsAsync([FromBody] EditMultipleReservationsCommand request)
+        {
+            await _mediator.Send(request);
+            return NoContent();
         }
     }
 }
