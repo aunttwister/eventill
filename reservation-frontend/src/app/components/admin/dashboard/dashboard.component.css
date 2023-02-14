@@ -1,3 +1,20 @@
+::ng-deep .mat-tab-list {
+    margin-bottom: 75px;
+    user-select: none;
+}
+
+::ng-deep .mat-tab-labels {
+    justify-content: center;
+}
+
+::ng-deep mat-ink-bar {
+    display: none;
+}
+
+::ng-deep .mat-tab-label-active {
+    background-color: rgb(166, 166, 142);
+}
+
 .main-container{
     justify-content: start;
     height: 90vh;

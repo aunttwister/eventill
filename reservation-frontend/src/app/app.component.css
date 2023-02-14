@@ -25,7 +25,7 @@
 
 .main-container {
     height: 50vh;
-    width: 75vh;
+    width: 40vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -55,8 +55,12 @@ button {
     border-radius: 0%;
 }
 
-.btn:hover {
+.btn:hover:not([disabled])  {
     opacity: 0.7;
+}
+
+.btn:disabled{
+  opacity: 0.7;
 }
 
 .info-data {

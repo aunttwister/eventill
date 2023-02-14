@@ -1,0 +1,56 @@
+<div style="margin-top: 10%;">
+    <div class="align-center">
+        <div class="main-container">
+            <div class="bold-font align-center">
+                PRIJAVI SE:
+            </div>
+            <hr>
+            <div class="align-center">
+                <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+                    <div class="form-group">
+                        <input 
+                            [(ngModel)]="newLogin.email" 
+                            class="bold-font" 
+                            type="text" 
+                            placeholder="EMAIL*" 
+                            required
+                            id="email"
+                            name="email"
+                            #email="ngModel">
+    
+                        <div 
+                            [hidden]="email.valid || email.pristine"
+                            class="alert-font">
+                            <i>Email adresa je obavezna.</i>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input 
+                            [(ngModel)]="newLogin.password" 
+                            class="bold-font" 
+                            type="password" 
+                            placeholder="ŠIFRA*" 
+                            required
+                            id="password"
+                            name="password"
+                            #password="ngModel">
+    
+                        <div 
+                            [hidden]="password.valid || password.pristine"
+                            class="alert-font">
+                            <i>Šifra je obavezna.</i>
+                        </div>
+                    </div>
+                    <div class="default-font submit-button">
+                        <button 
+                            type="submit" 
+                            class="btn btn-data" 
+                            [disabled]="!loginForm.form.valid">
+                            PRIJAVI SE
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,13 +1,42 @@
-table {
-  width: 100%;
+::ng-deep .mat-sort-header-container {
+  display: flex;
+  justify-content: center;
 }
 
+::ng-deep .mat-header-cell:first-of-type {
+  padding: 0 !important;
+}
+
+::ng-deep td {
+  padding: 0 !important;
+}
+
+::ng-deep .mat-checkbox-checked .mat-checkbox-background, 
+.mat-checkbox-indeterminate .mat-checkbox-background {
+  background-color: rgb(166, 166, 142) !important;
+}
+
+::ng-deep .mat-checkbox:not(.mat-checkbox-disabled) .mat-checkbox-ripple .mat-ripple-element {
+  background-color: rgb(166, 166, 142) !important;
+}
+
+::ng-deep mat-icon{
+  padding-left: 5px;
+}
+
+.main-table {
+  width: 70vw;
+}
+
+th {
+  height: 3vh;
+}
 tr.example-detail-row {
   height: 0;
 }
 
 tr.example-element-row:not(.example-expanded-row):hover {
-  background: #777;
+  background: rgb(166, 166, 142);
 }
 
 tr.example-element-row:not(.example-expanded-row):active {
@@ -21,31 +50,15 @@ tr.example-element-row:not(.example-expanded-row):active {
 .example-element-detail {
   overflow: hidden;
   display: flex;
+  padding-left: 24px !important;
+  width: calc(100% - 24px);
 }
 
-.example-element-diagram {
-  min-width: 80px;
-  border: 2px solid black;
-  padding: 8px;
-  font-weight: lighter;
-  margin: 8px 0;
-  height: 104px;
-}
-
-.example-element-symbol {
-  font-weight: bold;
-  font-size: 40px;
-  line-height: normal;
-}
-
-.example-element-description {
-  padding: 16px;
-}
-
-.example-element-description-attribution {
-  opacity: 0.5;
+.example-element-detail table {
+  width: 100%;
 }
 
 .inner-table {
   width: 100%;
+  box-shadow: none;
 }

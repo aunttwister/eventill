@@ -1,37 +1,65 @@
 <div class="mat-elevation-z8">
-  <table mat-table #outerSort="matSort" [dataSource]="dataSource" multiTemplateDataRows matSort matSortActive="Datum" matSortDirection="asc">
+  <table mat-table #outerSort="matSort" [dataSource]="dataSource" multiTemplateDataRows matSort matSortActive="Datum" matSortDirection="asc" class="main-table">
 
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
 
     <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column}} </th>
-      <td mat-cell *matCellDef="let eventOccurrence"> {{eventOccurrence[column]}} </td>
+      <td mat-cell *matCellDef="let eventOccurrence"> 
+        <div *ngIf="column == 'activate'; else default_content">
+          <mat-checkbox [disabled]="eventOccurrence.reservations.length != 0" [checked]="eventOccurrence.active"></mat-checkbox>
+        </div>
+        <ng-template #default_content>{{eventOccurrence[column]}} </ng-template>
+      </td>
+      <td mat-footer-cell *matFooterCellDef>
+        <div *ngIf="column == columnsToDisplay[columnsToDisplay.length - 1]">
+          <button mat-raised-button><span>Activate Event Occurrences</span></button>
+        </div>
+      </td>
     </ng-container>
 
       <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
       <ng-container matColumnDef="expandedDetail">
         <td mat-cell *matCellDef="let eventOccurrence" [attr.colspan]="columnsToDisplay.length">
-          <div class="example-element-detail" *ngIf="eventOccurrence.reservations?.data.length" [@detailExpand]="eventOccurrence == expandedElement ? 'expanded' : 'collapsed'">
+          <div class="example-element-detail" *ngIf="eventOccurrence.reservations.length" [@detailExpand]="eventOccurrence == expandedElement ? 'expanded' : 'collapsed'">
             <div class="inner-table mat-elevation-z8" *ngIf="expandedElement">
               <table mat-table #innerTables #innerSort="matSort" [dataSource]="eventOccurrence.reservations" matSort>
                 <ng-container matColumnDef="{{innerColumn}}" *ngFor="let innerColumn of innerDisplayedColumns">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> {{innerColumn}} </th>
-                  <td mat-cell *matCellDef="let eventOccurrence"> {{eventOccurrence[innerColumn]}} </td>
+                  <td mat-cell *matCellDef="let reservation"> 
+                    <div *ngIf="innerColumn == 'paymentCompleted'; else default_content">
+                      <mat-checkbox [checked]="reservation.paymentCompleted"></mat-checkbox>
+                    </div>
+                    <div *ngIf="innerColumn == 'delete'">
+                      <button mat-flat-button style="margin-right: 42px;" (click)="onDelete(eventOccurrence.id, reservation.id)"><mat-icon svgIcon="delete_icon" style="padding-left: 0"></mat-icon></button>
+                    </div>
+                    <ng-template #default_content>{{reservation[innerColumn]}} </ng-template>
+                  </td>
+                  <td mat-footer-cell *matFooterCellDef>
+                    <div *ngIf="innerColumn == innerDisplayedColumns[innerDisplayedColumns.length - 2]">
+                      <button mat-raised-button><span>Excel Export</span><mat-icon svgIcon="excel_icon"></mat-icon></button>
+                    </div>
+                    <div *ngIf="innerColumn == innerDisplayedColumns[innerDisplayedColumns.length - 1]">
+                      <button mat-raised-button style="margin-right: 40px;" (click)="onSave(eventOccurrence.id)">Save</button>
+                    </div>
+                  </td>
                 </ng-container>
-                <th mat-header-row *matHeaderRowDef="innerDisplayedColumns"></th>
+                <tr mat-header-row *matHeaderRowDef="innerDisplayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: innerDisplayedColumns;"></tr>
+                <tr mat-footer-row *matFooterRowDef="innerDisplayedColumns; sticky: true"></tr>
               </table>
             </div>
           </div>
         </td>
       </ng-container>
   
-      <th mat-header-row *matHeaderRowDef="columnsToDisplay"></th>
-      <tr mat-row *matRowDef="let eventOccurrence; columns: columnsToDisplay;" [class.example-element-row]="eventOccurrence.reservations?.length"
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let eventOccurrence; columns: columnsToDisplay;" [class.example-element-row]="eventOccurrence.reservations.length"
        [class.example-expanded-row]="expandedElement === eventOccurrence" (click)="toggleRow(eventOccurrence)">
       </tr>
       <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+      <tr mat-footer-row *matFooterRowDef="columnsToDisplay; sticky: true"></tr>
   </table>
 
   <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of eventOccurrences"></mat-paginator>

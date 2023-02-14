@@ -13,5 +13,5 @@ export class EventOccurrence {
     public availableTicketCount!: number
     public reservedTicketCount!: number
     public soldTicketCount!: number
-    public reservations?: Reservation[] | MatTableDataSource<Reservation>
+    public reservations!: Reservation[]
 }
