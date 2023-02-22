@@ -29,5 +29,15 @@ namespace Reservations.Application.Common.Extensions
                 .Where(eo => eo.StartTime == eventOccurence.StartTime)
                 .CountAsync(cancellationToken) == 1;
         }
+
+        public static async Task<bool> EventOccurrencesExistAsync(
+            this DbSet<EventOccurrence> eventOccurrences,
+            IEnumerable<EventOccurrence> multipleEventOccurrences,
+            CancellationToken cancellationToken = default)
+        {
+            return await eventOccurrences
+                .Where(eo => multipleEventOccurrences.Select(meo => meo.Id).Contains(eo.Id))
+                .CountAsync(cancellationToken) > 0;
+        }
     }
 }

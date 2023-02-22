@@ -12,6 +12,7 @@ namespace Reservations.Persistance.Configurations
     {
         public override void ConfigureAuditableEntity(EntityTypeBuilder<User> builder)
         {
+            builder.HasQueryFilter(u => !u.IsDeleted);
             builder.HasKey(u => u.Id);
             builder.Property(u => u.Email)
                 .HasMaxLength(128)

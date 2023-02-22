@@ -23,6 +23,7 @@ namespace Reservations.Application
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(RequestAuthorizationBehavior<,>));
 
             services.AddTransient<IEventSetupService, EventSetupService>();
+            services.AddTransient<ITicketService, TicketService>();
 
             AddAuthorizers(services);
         }

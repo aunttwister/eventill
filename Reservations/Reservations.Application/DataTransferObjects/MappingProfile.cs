@@ -23,7 +23,8 @@ namespace Reservations.Application.DataTransferObjects
                 .ForMember(rc => rc.Email, opts => opts.MapFrom(r => r.User.Email))
                 .ForMember(rc => rc.EventOccurrence, opts => opts.Ignore())
                 .ForMember(rc => rc.Tickets, opts => opts.MapFrom(r => r.EventOccurrence.Tickets.Where(t => t.ReservationId == r.Id)))
-                .ForMember(rc => rc.TicketCount, opts => opts.MapFrom(r => r.EventOccurrence.Tickets.Where(t => t.ReservationId == r.Id).Count()));
+                .ForMember(rc => rc.TicketCount, opts => opts.MapFrom(r => r.EventOccurrence.Tickets.Where(t => t.ReservationId == r.Id).Count()))
+                .ReverseMap();
             CreateMap<Question, QuestionDto>();
             CreateMap<EventOccurrence, EventOccurrenceDto>()
                 .ForMember(eo => eo.StartTime, opts => opts.MapFrom(eo => eo.StartTime))
@@ -34,8 +35,7 @@ namespace Reservations.Application.DataTransferObjects
                     .Where(t => t.TicketState == TicketState.Reserved).ToList().Count))
                 .ForMember(eo => eo.SoldTicketCount, opts => opts.MapFrom(eo => eo.Tickets
                     .Where(t => t.TicketState == TicketState.Sold).ToList().Count));
-            CreateMap<Ticket, TicketDto>()
-                .ForMember(t => t.Reservation, opts => opts.Ignore());
+            CreateMap<Ticket, TicketDto>().ReverseMap();
             CreateMap<List<Ticket>, TicketsStateDto>()
                 .ForMember(ts => ts.Count, opts => opts.MapFrom(t => t.Count))
                 .ForMember(ts => ts.Price, opts => opts.MapFrom(t => t.Select(t => t.Price).FirstOrDefault()));

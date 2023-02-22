@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Reservations.Application;
 using Reservations.Security.Common.Interfaces;
+using Reservations.Security.Common.Options;
 using Reservations.Security.Common.Services;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,8 @@ namespace Reservations.Security
             },
             Assembly.GetExecutingAssembly());
             services.AddAutoMapper(typeof(SecurityServiceExtensions).Assembly);
+
+            services.Configure<TokenProviderOptions>(configuration.GetSection("JWTAuthentication"));
 
             services.AddTransient<Common.Interfaces.IAuthenticationService, AuthenticationService>();
             services.AddTransient<ITokenProviderService, TokenProviderService>();

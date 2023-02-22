@@ -31,10 +31,16 @@ namespace Reservations.Application.Reservations.Commands.CreateReservation
         }
         public async Task<ReservationDto> Handle(CreateReservationCommand request, CancellationToken cancellationToken)
         {
-            IEnumerable<Ticket> availableTickets = await _dbContext.Tickets
-                .Where(t => t.EventOccurenceId == request.EventOccurrenceId 
-                 && t.TicketState == TicketState.Available)
-                .ToListAsync(cancellationToken);
+            EventOccurrence eventOccurrence = await _dbContext.EventOccurrences.Include(eo => eo.Tickets)
+                .FirstOrDefaultAsync(eo => eo.Id == request.EventOccurrenceId, cancellationToken);
+
+            if (!eventOccurrence.IsActive)
+                throw new BadRequestException($"Event occurrence with the start date: {eventOccurrence.StartTime} is not active.");
+
+            IEnumerable<Ticket> availableTickets = eventOccurrence.Tickets.Where(t => t.TicketState == TicketState.Available);
+
+            if (!availableTickets.Any())
+                throw new BadRequestException($"There are no available {nameof(Ticket)}/s.");
 
             if (availableTickets.Count() < request.TicketCount)
                 throw new BadRequestException($"Order exceeds available number of {nameof(Ticket)}/s.");

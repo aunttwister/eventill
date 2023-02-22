@@ -13,6 +13,7 @@ namespace Reservations.Persistance.Configurations
     {
         public override void ConfigureAuditableEntity(EntityTypeBuilder<EventQuestion> builder)
         {
+            builder.HasQueryFilter(eq => !eq.IsDeleted);
             builder.HasKey(eq => eq.Id);
             builder.Property(eq => eq.QuestionId)
                 .IsRequired();

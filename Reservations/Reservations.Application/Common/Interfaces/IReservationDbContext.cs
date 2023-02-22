@@ -22,5 +22,7 @@ namespace Reservations.Application.Common.Interfaces
         public DbSet<Reservation> Reservations { get; set; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+        void ClearTracker();
+        void UpdateEntityState<T>(T entity, EntityState modified) where T : class;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Reservations.Application.EventOccurrences.Commands.CreateEventOccurrence;
+using Reservations.Application.EventOccurrences.Commands.EditEventOccurrence;
 using Reservations.Domain;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace Reservations.Application.EventOccurrences
         public MappingProfile()
         {
             CreateMap<CreateEventOccurrenceCommand, EventOccurrence>();
+            CreateMap<EditEventOccurrenceCommand, EventOccurrence>();
         }
     }
 }

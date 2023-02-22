@@ -19,5 +19,6 @@ namespace Reservations.Application.DataTransferObjects
         public long EventOccurrenceId { get; set; }
         public EventOccurrenceDto EventOccurrence { get; set; }
         public bool IsDeleted { get; set; }
+        public Guid UserId { get; set; }
     }
 }

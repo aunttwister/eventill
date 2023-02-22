@@ -3,6 +3,7 @@ using Reservations.Application.Common.Exceptions;
 using Reservations.Application.Common.Extensions;
 using Reservations.Application.Common.Interfaces;
 using Reservations.Domain;
+using Reservations.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,7 +50,7 @@ namespace Reservations.Application.Common.Services
             List<Ticket> tickets = new List<Ticket>();
             for (int i = 0; i < ticketCount; i++)
             {
-                tickets.Add(new Ticket() { Price = ticketPrice });
+                tickets.Add(new Ticket() { Price = ticketPrice, TicketState = TicketState.Unavailable });
             }
 
             return tickets;

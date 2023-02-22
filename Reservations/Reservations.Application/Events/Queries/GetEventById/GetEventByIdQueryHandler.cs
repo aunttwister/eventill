@@ -26,13 +26,13 @@ namespace Reservations.Application.Events.Queries.GetEventById
         }
         public async Task<EventDto> Handle(GetEventByIdQuery request, CancellationToken cancellationToken)
         {
-            var eventInstace = await _dbContext.Events.AsNoTracking()
+            var eventInstace = await _dbContext.Events
                 .Include(e => e.EventType)
                 .Include(e => e.Questions)
                 .Include(e => e.EventOccurrences)
                 .Include(e => e.EventOccurrences).ThenInclude(eo => eo.Reservations).ThenInclude(r => r.User)
-                .Include(e => e.EventOccurrences).ThenInclude(eo => eo.Tickets)
-                .FirstOrDefaultAsync(l => l.Id == request.Id && !l.IsDeleted, cancellationToken);
+                .Include(e => e.EventOccurrences).ThenInclude(eo => eo.Tickets).AsNoTracking()
+                .FirstOrDefaultAsync(e => e.Id == request.Id, cancellationToken);
             if (eventInstace == null)
             {
                 throw new NotFoundException(nameof(Event), request.Id);

@@ -11,12 +11,13 @@ namespace Reservations.Security.Common.Options
     {
         public string Path { get; set; } = "/token";
 
-        public string Issuer { get; set; } = "Reservations.Api";
+        public string Issuer { get; set; }
 
-        public string Audience { get; set; } = "reservations-frontend";
+        public List<string> Audiences { get; set; }
 
         public TimeSpan Expiration { get; set; } = TimeSpan.FromMinutes(240);
 
         public SigningCredentials SigningCredentials { get; set; }
+        public string Secret { get; set; }
     }
 }

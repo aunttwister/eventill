@@ -13,6 +13,7 @@ namespace Reservations.Persistance.Configurations
     {
         public override void ConfigureAuditableEntity(EntityTypeBuilder<LoginDetails> builder)
         {
+            builder.HasQueryFilter(ld => !ld.IsDeleted);
             builder.HasKey(ld => ld.Id);
             builder.Property(ld => ld.HashPassword)
                 .HasMaxLength(20)

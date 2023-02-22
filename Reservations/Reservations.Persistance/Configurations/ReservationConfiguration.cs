@@ -13,6 +13,7 @@ namespace Reservations.Persistance.Configurations
     {
         public override void ConfigureAuditableEntity(EntityTypeBuilder<Reservation> builder)
         {
+            builder.HasQueryFilter(r => !r.IsDeleted);
             builder.HasKey(r => r.Id);
             builder.HasOne(r => r.User)
                    .WithMany(u => u.Reservations)

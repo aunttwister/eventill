@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Reservations.Persistance;
 
@@ -10,9 +11,10 @@ using Reservations.Persistance;
 namespace Reservations.Persistance.Migrations
 {
     [DbContext(typeof(ReservationDbContext))]
-    partial class ReservationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230215033748_AddEventOccurrenceActive")]
+    partial class AddEventOccurrenceActive
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,7 +50,7 @@ namespace Reservations.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Audits", (string)null);
+                    b.ToTable("Audits");
                 });
 
             modelBuilder.Entity("Reservations.Domain.Event", b =>
@@ -103,7 +105,7 @@ namespace Reservations.Persistance.Migrations
 
                     b.HasIndex("EventTypeId");
 
-                    b.ToTable("Events", (string)null);
+                    b.ToTable("Events");
                 });
 
             modelBuilder.Entity("Reservations.Domain.EventOccurrence", b =>
@@ -148,7 +150,7 @@ namespace Reservations.Persistance.Migrations
 
                     b.HasIndex("EventId");
 
-                    b.ToTable("EventOccurrences", (string)null);
+                    b.ToTable("EventOccurrences");
                 });
 
             modelBuilder.Entity("Reservations.Domain.EventQuestion", b =>
@@ -184,7 +186,7 @@ namespace Reservations.Persistance.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("EventQuestions", (string)null);
+                    b.ToTable("EventQuestions");
                 });
 
             modelBuilder.Entity("Reservations.Domain.EventType", b =>
@@ -221,7 +223,7 @@ namespace Reservations.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EventTypes", (string)null);
+                    b.ToTable("EventTypes");
                 });
 
             modelBuilder.Entity("Reservations.Domain.LoginDetails", b =>
@@ -269,7 +271,7 @@ namespace Reservations.Persistance.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("LoginDetails", (string)null);
+                    b.ToTable("LoginDetails");
                 });
 
             modelBuilder.Entity("Reservations.Domain.Question", b =>
@@ -306,7 +308,7 @@ namespace Reservations.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Questions", (string)null);
+                    b.ToTable("Questions");
                 });
 
             modelBuilder.Entity("Reservations.Domain.Reservation", b =>
@@ -351,7 +353,7 @@ namespace Reservations.Persistance.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Reservations", (string)null);
+                    b.ToTable("Reservations");
                 });
 
             modelBuilder.Entity("Reservations.Domain.Role", b =>
@@ -388,7 +390,7 @@ namespace Reservations.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles", (string)null);
+                    b.ToTable("Roles");
 
                     b.HasData(
                         new
@@ -453,7 +455,7 @@ namespace Reservations.Persistance.Migrations
 
                     b.HasIndex("ReservationId");
 
-                    b.ToTable("Tickets", (string)null);
+                    b.ToTable("Tickets");
                 });
 
             modelBuilder.Entity("Reservations.Domain.User", b =>
@@ -503,7 +505,7 @@ namespace Reservations.Persistance.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Reservations.Domain.Event", b =>

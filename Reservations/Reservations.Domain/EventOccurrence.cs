@@ -22,6 +22,7 @@ namespace Reservations.Domain
         public Event Event { get; set; }
         public ICollection<Ticket> Tickets { get; set; }
         public ICollection<Reservation> Reservations { get; set; }
+        public bool IsActive { get; set; }
 
     }
 }

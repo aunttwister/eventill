@@ -8,6 +8,7 @@ using Reservations.Api.Middlewares;
 using Reservations.Application;
 using Reservations.Persistance;
 using Reservations.Security;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,7 +42,6 @@ builder.Services.AddAuthentication(options =>
             .AddJwtBearer(options =>
             {
                 options.Authority = builder.Configuration["JWTAuthentication:Authority"];
-
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = true,
@@ -51,7 +51,10 @@ builder.Services.AddAuthentication(options =>
                     ValidAudiences = builder.Configuration.GetSection("JWTAuthentication")?
                     .GetSection("Audiences")?
                     .GetChildren()?.Select(x => x.Value)?
-                    .ToList()
+                    .ToList(),
+                    ValidIssuer = builder.Configuration.GetSection("JWTAuthentication").GetSection("Issuer").Value,
+                    IssuerSigningKey = new SymmetricSecurityKey(
+                        Encoding.ASCII.GetBytes(builder.Configuration.GetSection("JWTAuthentication:Secret").Value))
                 };
             });
 
@@ -76,6 +79,8 @@ if (app.Environment.IsDevelopment())
 app.UseCustomExceptionHandler();
 
 app.UseHttpsRedirection();
+
+app.UseRouting();
 
 app.UseCors(build =>
     build.WithOrigins(builder.Configuration["CORS:AllowedOrigins"])

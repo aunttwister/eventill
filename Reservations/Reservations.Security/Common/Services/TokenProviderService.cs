@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Reservations.Domain;
 using Reservations.Security.Common.Interfaces;
 using Reservations.Security.Common.Options;
@@ -28,13 +30,17 @@ namespace Reservations.Security.Common.Services
             };
             claims.Add(new Claim(ClaimTypes.Role, roleName));
 
+            byte[] tokenKey = Encoding.ASCII.GetBytes(_options.Secret);
+
             var jwt = new JwtSecurityToken(
                 issuer: _options.Issuer,
-                audience: _options.Audience,
+                audience: _options.Audiences.First(),
                 claims: claims,
                 notBefore: now,
                 expires: now.Add(_options.Expiration),
-                signingCredentials: _options.SigningCredentials);
+                signingCredentials: _options.SigningCredentials = new SigningCredentials(
+                    new SymmetricSecurityKey(tokenKey),
+                    SecurityAlgorithms.HmacSha256Signature));
 
             string token = new JwtSecurityTokenHandler().WriteToken(jwt);
 

@@ -57,13 +57,13 @@ namespace Reservations.Api.Middlewares
                 //    code = HttpStatusCode.BadRequest;
                 //    result = JsonConvert.SerializeObject(new { errors = validationException.Failures });
                 //    break;
+                case NotFoundException _:
+                    code = HttpStatusCode.NotFound;
+                    result = JsonConvert.SerializeObject(new { error = exception.Message });
+                    break;
                 case BadRequestException _:
                     code = HttpStatusCode.BadRequest;
                     result = JsonConvert.SerializeObject(new { error = exception.Message });
-                    break;
-                case NotFoundException _:
-                    result = JsonConvert.SerializeObject(new { error = exception.Message });
-                    code = HttpStatusCode.NotFound;
                     break;
             }
 

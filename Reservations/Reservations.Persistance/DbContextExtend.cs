@@ -36,11 +36,21 @@ namespace Reservations.Persistance
         public DbSet<Audit> Audits { get; set; }
         public async override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            //var auditEntries = await OnBeforeSaveChangesAsync();
+            var auditEntries = await OnBeforeSaveChangesAsync();
             var result = await base.SaveChangesAsync(cancellationToken);
-            //await OnAfterSaveChanges(auditEntries);
+            await OnAfterSaveChanges(auditEntries);
 
             return result;
+        }
+
+        public void ClearTracker()
+        {
+            ChangeTracker.Clear();
+        }
+
+        public void UpdateEntityState<T>(T entity, EntityState entityState) where T : class
+        {
+            Entry(entity).State = entityState;
         }
 
         //Not used
@@ -56,8 +66,8 @@ namespace Reservations.Persistance
                 var auditEntry = new AuditEntry(entry);
                 auditEntry.TableName = entry.Metadata.GetTableName();
                 auditEntry.Action = entry.State.ToString();
-                var currentUser = await _userService.GetCurrentUserAsync();
-                auditEntry.UserId = currentUser?.Id.ToString();
+                /*var currentUser = await _userService.GetCurrentUserAsync();
+                auditEntry.UserId = currentUser?.Id.ToString();*/
                 auditEntries.Add(auditEntry);
 
                 foreach (var property in entry.Properties)
@@ -79,8 +89,8 @@ namespace Reservations.Persistance
                     {
                         case EntityState.Added:
                             auditEntry.NewValues[propertyName] = property.CurrentValue;
-                            entry.Entity.Created = _dateTime.UtcNow;
-                            entry.Entity.CreatedBy = currentUser?.Id.ToString();
+                            entry.Entity.Created = DateTime.UtcNow;
+                            //entry.Entity.CreatedBy = currentUser?.Id.ToString();
                             break;
 
                         case EntityState.Deleted:
@@ -93,8 +103,8 @@ namespace Reservations.Persistance
                                 auditEntry.OldValues[propertyName] = property.OriginalValue;
                                 auditEntry.NewValues[propertyName] = property.CurrentValue;
                             }
-                            entry.Entity.LastModified = _dateTime.UtcNow;
-                            entry.Entity.LastModifiedBy = currentUser?.Id.ToString();
+                            entry.Entity.LastModified = DateTime.UtcNow;
+                            //entry.Entity.LastModifiedBy = currentUser?.Id.ToString();
                             break;
                     }
                 }

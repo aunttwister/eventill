@@ -26,8 +26,8 @@ namespace Reservations.Application.Common.Extensions
             CancellationToken cancellationToken = default)
         {
             return await reservations
-                .Where(r => multipleReservations.Any(mr => mr.Id == r.Id))
-                .CountAsync(cancellationToken) == 1;
+                .Where(r => multipleReservations.Select(mr => mr.Id).Contains(r.Id))
+                .CountAsync(cancellationToken) > 0;
         }
     }
 }

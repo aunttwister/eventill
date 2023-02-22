@@ -23,37 +23,5 @@ namespace Reservations.Application.Common.Extensions
                 .Where(t => t.EventOccurenceId == eventOccurrenceId)
                 .CountAsync(cancellationToken) <= ticketCount == true;
         }
-
-        public static async Task ResetTicketStateAsync(
-            this DbSet<Ticket> tickets,
-            Reservation reservation,
-            TicketState ticketState,
-            CancellationToken cancellationToken = default)
-        {
-            if (!reservation.Tickets.Any())
-                throw new NotFoundException(nameof(Ticket), "multiple");
-
-            List<Ticket> updateTickets = await tickets
-                .Where(t => reservation.Tickets.Select(tr => tr.Id).Contains(t.Id))
-                .ToListAsync(cancellationToken);
-
-            switch (ticketState)
-            {
-                case TicketState.Available:
-                    reservation.Tickets.Clear();
-                    break;
-                case TicketState.Reserved:
-                    break;
-                case TicketState.Unavailable:
-                    break;
-                case TicketState.Sold:
-                    reservation.Tickets.ForEach(t => t.TicketState = ticketState);
-                    break;
-                default:
-                    break;
-            }
-
-            updateTickets.ForEach(t => t.TicketState = ticketState);
-        }
     }
 }

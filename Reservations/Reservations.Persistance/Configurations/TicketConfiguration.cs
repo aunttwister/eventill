@@ -14,6 +14,7 @@ namespace Reservations.Persistance.Configurations
     {
         public override void ConfigureAuditableEntity(EntityTypeBuilder<Ticket> builder)
         {
+            builder.HasQueryFilter(t => !t.IsDeleted);
             builder.HasKey(t => t.Id);
             builder.Property(t => t.TicketState)
                 .HasColumnType($"enum('{TicketState.Available}', '{TicketState.Unavailable}', '{TicketState.Reserved}', '{TicketState.Sold}')")

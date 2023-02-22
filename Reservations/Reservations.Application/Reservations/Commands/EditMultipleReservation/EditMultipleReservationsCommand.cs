@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Reservations.Application.Reservations.Commands.ConfirmPaymentCompleted;
+using Reservations.Application.Reservations.Commands.EditReservation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
