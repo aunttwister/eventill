@@ -34,6 +34,7 @@ export class CreateReservationComponent implements OnInit, OnDestroy {
   )
 
   constructor(private reservationService: ReservationService,
+              private router: Router,
               private route: ActivatedRoute,
               private notificationService: NotificationService,
               private stateService: StateService) { }
@@ -74,6 +75,7 @@ export class CreateReservationComponent implements OnInit, OnDestroy {
       res => {
         console.log(res);
         this.stateService.clearEventOccurrence();
+        this.router.navigate(["confirmation/" + this.eventName]);;
       },
       err => {console.log(err);
         this.notificationService.showError(err.error.error, 'StatusCode: ' + err.status);

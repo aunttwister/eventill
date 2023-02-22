@@ -7,6 +7,9 @@
                 <p class="info-data align-center default-font">REŽIJA I ADAPTACIJA - {{mainEvent.directorName}}</p>
             </div>
             <div class="main-container">
+                <div class="bold-font align-start title">
+                    Rezervacija karte
+                </div>
                 <div class="bold-font align-center">
                     Izaberite odgovarajući termin/datum:
                 </div>
@@ -15,19 +18,21 @@
                      style="flex-direction: column; 
                             max-height: 50%;
                             max-width: 100%;">
-                    <div class="grid-div scrollbar" style="margin-bottom: 15px;">
-                        <div *ngFor="let eventOccurrence of mainEvent.eventOccurrences;">
+                    <div class="grid-div scrollbar" style="margin-bottom: 15px;" 
+                    *ngIf="filterEventOccurrencesLength(mainEvent.eventOccurrences) != 0; else event_occurrences_unavailable">
+                        <div *ngFor="let eventOccurrence of filterEventOccurrences(mainEvent.eventOccurrences);">
                             <div class="grid-child">
-                                <button class="btn" (click)="selectEventOccurrence(eventOccurrence.id, mainEvent.name)" style="width: 120px; margin-bottom: 6px;">
-                                    <span class="btn-data bold-font">{{eventOccurrence.startTime | date: 'MM.dd hh:mm'}}</span>
+                                <button [disabled]="getTicketState(eventOccurrence)" class="btn" (click)="selectEventOccurrence(eventOccurrence.id, mainEvent.name)" style="width: 120px; margin-bottom: 6px;">
+                                    <span class="btn-data bold-font">{{eventOccurrence.startTime | date: 'MM.dd HH:mm'}}</span>
                                 </button>
                             </div>
                         </div>
                     </div>
-                </div>
-                <hr>
-                <div class="default-font align-center">
-                    REZERVISI KARTU
+                    <ng-template #event_occurrences_unavailable>
+                        <div class="bold-font align-center">
+                            Trenutno nema aktivnih dogadjaja.
+                        </div>
+                    </ng-template>
                 </div>
             </div>
         </div>

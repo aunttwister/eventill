@@ -8,7 +8,7 @@
 .align-start {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: start;
 }
 
 .bold-font {
@@ -53,6 +53,10 @@ button {
     border-color: white;
     border-style: solid;
     border-radius: 0%;
+}
+
+.btn:disabled{
+  opacity: 0.5;
 }
 
 .btn:hover:not([disabled])  {

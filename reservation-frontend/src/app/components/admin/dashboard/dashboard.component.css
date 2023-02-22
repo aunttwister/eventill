@@ -4,7 +4,14 @@
 }
 
 ::ng-deep .mat-tab-labels {
+    font-family: 'Montserrat', sans-serif;
     justify-content: center;
+}
+
+::ng-deep .mat-tab-label-content {
+    font-size: large;
+    font-weight: bold;
+    color: white;
 }
 
 ::ng-deep mat-ink-bar {
@@ -12,7 +19,7 @@
 }
 
 ::ng-deep .mat-tab-label-active {
-    background-color: rgb(166, 166, 142);
+    background-color: rgb(102, 102, 88);
 }
 
 .main-container{

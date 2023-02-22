@@ -1,3 +1,63 @@
+::ng-deep .mat-button-wrapper, .mat-table, .mat-paginator, .mat-form-field {
+  font-family: 'Montserrat', sans-serif;
+  font-size: medium;
+  font-weight: 500;
+  color: white;
+}
+
+::ng-deep .mat-flat-button {
+  background-color: rgb(166, 166, 142, 0.9);
+}
+
+::ng-deep .mat-raised-button {
+  color: white;
+  background-color: rgb(136, 136, 119);
+}
+
+::ng-deep .mat-table, .mat-option {
+  background-color: rgb(166, 166, 142, 0.9);
+}
+
+::ng-deep .mat-option-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: medium;
+  font-weight: 500;
+  color: white;
+}
+
+::ng-deep .mat-select-panel {
+  font-family: 'Montserrat', sans-serif;
+  font-size: medium;
+  font-weight: 500;
+  color: white;
+  background-color: rgb(166, 166, 142, 0.9);
+}
+
+::ng-deep .mat-select-value {
+  font-family: 'Montserrat', sans-serif;
+  font-size: medium;
+  font-weight: 500;
+  color: white;
+}
+
+::ng-deep .mat-focused {
+  color: black !important;
+}
+
+::ng-deep .mat-option {
+  background-color: rgb(166, 166, 142, 0.9);
+}
+
+::ng-deep .mat-paginator {
+  background-color: rgb(166, 166, 142);
+}
+
+::ng-deep .mat-header-cell, .mat-cell {
+  font-size: large;
+  font-weight: 500;
+  color: white;
+}
+
 ::ng-deep .mat-sort-header-container {
   display: flex;
   justify-content: center;
@@ -13,11 +73,11 @@
 
 ::ng-deep .mat-checkbox-checked .mat-checkbox-background, 
 .mat-checkbox-indeterminate .mat-checkbox-background {
-  background-color: rgb(166, 166, 142) !important;
+  background-color: rgb(102, 102, 88) !important;
 }
 
 ::ng-deep .mat-checkbox:not(.mat-checkbox-disabled) .mat-checkbox-ripple .mat-ripple-element {
-  background-color: rgb(166, 166, 142) !important;
+  background-color: rgb(102, 102, 88) !important;
 }
 
 ::ng-deep mat-icon{
@@ -36,11 +96,11 @@ tr.example-detail-row {
 }
 
 tr.example-element-row:not(.example-expanded-row):hover {
-  background: rgb(166, 166, 142);
+  background: rgb(151, 151, 131);
 }
 
 tr.example-element-row:not(.example-expanded-row):active {
-  background: #efefef;
+  background: rgb(136, 136, 117);
 }
 
 .example-element-row td {

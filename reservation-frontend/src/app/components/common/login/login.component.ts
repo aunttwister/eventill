@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { EventService } from 'src/app/services/http.services/event.service';
-import { Event } from 'src/app/models/event'
 import { AuthenticateUserCommand } from 'src/app/request-commands/authenticateUserCommand';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { NotificationService } from 'src/app/services/notification.service';
@@ -29,9 +27,9 @@ export class LoginComponent implements OnInit {
     this.authenticationService.postLogin(this.newLogin).subscribe(
       res => {
         const token = res.access_token;
+        console.log(token)
         sessionStorage.setItem('access_token', token);
-        this.router.navigate(['admin']);
-        console.log(res);
+        this.router.navigate(['admin']);;
       },
       err => {console.log(err);
         this.notificationService.showError(err.error.error.message, 'StatusCode: ' + err.status);

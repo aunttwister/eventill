@@ -14,4 +14,6 @@ export class EventOccurrence {
     public reservedTicketCount!: number
     public soldTicketCount!: number
     public reservations!: Reservation[]
+    public isActive!: boolean
+    public isDeleted!: boolean
 }

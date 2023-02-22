@@ -3,3 +3,12 @@ ul {
     height: auto;
     width: auto;
 }
+
+.btn:disabled{
+    text-decoration-line: line-through;
+    text-decoration-color: red !important;
+  }
+
+.title {
+    position: relative; 
+}

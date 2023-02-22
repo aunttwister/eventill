@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   //{ path: 'events-view', component: EventsViewComponent },
   { path: 'event-overview', component: EventOverviewComponent },
-  { path: 'confirmation', component: ConfirmationPageComponent },
+  { path: 'confirmation/:eventName', component: ConfirmationPageComponent },
   { path: 'admin', component: DashboardComponent, canActivate: [RoleGuardService], data: { expectedRole: "Administrator" } },
   { path: '**', component: EventOverviewComponent}
 ];

@@ -4,17 +4,24 @@
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
 
-    <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column}} </th>
+    <ng-container matColumnDef="{{column.value}}" *ngFor="let column of columnsToDisplayComplex">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column.header}} </th>
       <td mat-cell *matCellDef="let eventOccurrence"> 
-        <div *ngIf="column == 'activate'; else default_content">
-          <mat-checkbox [disabled]="eventOccurrence.reservations.length != 0" [checked]="eventOccurrence.active"></mat-checkbox>
+        <div *ngIf="column.value === 'activate'">
+          <mat-checkbox 
+          style="padding-right: 37px;" 
+          [disabled]="eventOccurrence.reservations.length != 0" 
+          [checked]="eventOccurrence.isActive"
+          (change)="onCheckboxChangeEventOccurrence(eventOccurrence)"></mat-checkbox>
         </div>
-        <ng-template #default_content>{{eventOccurrence[column]}} </ng-template>
+        <div *ngIf="column.value === 'startTime'; else default_content">
+          {{eventOccurrence[column.value] | date: 'MM.dd.YYYY HH:mm'}}
+        </div>
+        <ng-template #default_content>{{eventOccurrence[column.value]}} </ng-template>
       </td>
       <td mat-footer-cell *matFooterCellDef>
-        <div *ngIf="column == columnsToDisplay[columnsToDisplay.length - 1]">
-          <button mat-raised-button><span>Activate Event Occurrences</span></button>
+        <div *ngIf="column.value === columnsToDisplayComplex[columnsToDisplayComplex.length - 1].value" style="margin-right: 32px;">
+          <button mat-raised-button (click)="onSaveOuterTable()"><span>Sačuvaj</span></button>
         </div>
       </td>
     </ng-container>
@@ -25,23 +32,25 @@
           <div class="example-element-detail" *ngIf="eventOccurrence.reservations.length" [@detailExpand]="eventOccurrence == expandedElement ? 'expanded' : 'collapsed'">
             <div class="inner-table mat-elevation-z8" *ngIf="expandedElement">
               <table mat-table #innerTables #innerSort="matSort" [dataSource]="eventOccurrence.reservations" matSort>
-                <ng-container matColumnDef="{{innerColumn}}" *ngFor="let innerColumn of innerDisplayedColumns">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> {{innerColumn}} </th>
+                <ng-container matColumnDef="{{innerColumn.value}}" *ngFor="let innerColumn of innerDisplayedColumnsComplex">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> {{innerColumn.header}} </th>
                   <td mat-cell *matCellDef="let reservation"> 
-                    <div *ngIf="innerColumn == 'paymentCompleted'; else default_content">
-                      <mat-checkbox [checked]="reservation.paymentCompleted"></mat-checkbox>
+                    <div *ngIf="innerColumn.value === 'paymentCompleted'; else default_content">
+                      <mat-checkbox 
+                      [checked]="reservation.paymentCompleted"
+                      (change)="onCheckboxChangeReservation(reservation)"></mat-checkbox>
                     </div>
-                    <div *ngIf="innerColumn == 'delete'">
-                      <button mat-flat-button style="margin-right: 42px;" (click)="onDelete(eventOccurrence.id, reservation.id)"><mat-icon svgIcon="delete_icon" style="padding-left: 0"></mat-icon></button>
+                    <div *ngIf="innerColumn.value === 'delete'">
+                      <button mat-flat-button style="margin-right: 42px;" (click)="onDelete(reservation)"><mat-icon svgIcon="delete_icon" style="padding-left: 0"></mat-icon></button>
                     </div>
-                    <ng-template #default_content>{{reservation[innerColumn]}} </ng-template>
+                    <ng-template #default_content>{{reservation[innerColumn.value]}} </ng-template>
                   </td>
                   <td mat-footer-cell *matFooterCellDef>
-                    <div *ngIf="innerColumn == innerDisplayedColumns[innerDisplayedColumns.length - 2]">
+                    <div *ngIf="innerColumn.value == innerDisplayedColumnsComplex[innerDisplayedColumnsComplex.length - 2].value">
                       <button mat-raised-button><span>Excel Export</span><mat-icon svgIcon="excel_icon"></mat-icon></button>
                     </div>
-                    <div *ngIf="innerColumn == innerDisplayedColumns[innerDisplayedColumns.length - 1]">
-                      <button mat-raised-button style="margin-right: 40px;" (click)="onSave(eventOccurrence.id)">Save</button>
+                    <div *ngIf="innerColumn.value == innerDisplayedColumnsComplex[innerDisplayedColumnsComplex.length - 1].value">
+                      <button mat-raised-button style="margin-right: 40px;" (click)="onSaveInnerTable()">Save</button>
                     </div>
                   </td>
                 </ng-container>
@@ -62,5 +71,5 @@
       <tr mat-footer-row *matFooterRowDef="columnsToDisplay; sticky: true"></tr>
   </table>
 
-  <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of eventOccurrences"></mat-paginator>
+  <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of eventOccurrencesView"></mat-paginator>
 </div>

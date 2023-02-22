@@ -14,6 +14,10 @@ import { DomSanitizer } from "@angular/platform-browser"
 import { EditMultipleReservationsCommand } from 'src/app/request-commands/editMultipleReservationsCommand';
 import { EditReservationCommand } from 'src/app/request-commands/editReservationCommand';
 import { ReservationService } from 'src/app/services/http.services/reservation.service';
+import { EventOccurrenceService } from 'src/app/services/http.services/event-occurrence.service';
+import { EditEventOccurrenceCommand } from 'src/app/request-commands/editEventOccurrenceCommand';
+import { EditMultipleEventOccurrencesCommand } from 'src/app/request-commands/editMultipleEventOccurrencesCommand';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-event-occurrence-overview',
@@ -39,19 +43,63 @@ export class EventOccurrenceOverviewComponent implements OnInit {
   @ViewChildren('innerSort') innerSort!: QueryList<MatSort>;
   @ViewChildren('innerTables') innerTables!: QueryList<MatTable<Reservation>>;
 
-  eventOccurrences = new Array<EventOccurrence>();
+  eventOccurrencesView = new Array<EventOccurrence>();
   eventOccurrencesData: EventOccurrence[] = [];
   dataSource!: MatTableDataSource<EventOccurrence>;
   columnsToDisplay = ['startTime', 'totalTicketCount', 'availableTicketCount', 'reservedTicketCount', 'soldTicketCount', 'activate'];
+  columnsToDisplayComplex = [{
+    header: 'Početak',
+    value: 'startTime'
+    }, {
+      header: 'Ukupno karata',
+      value: 'totalTicketCount'
+    }, { 
+      header: 'Dostupno karata',
+      value: 'availableTicketCount'
+    }, { 
+      header: 'Rezervisano karata',
+      value: 'reservedTicketCount',
+    }, { 
+      header: 'Prodato karata',
+      value: 'soldTicketCount'
+    }, { 
+      header: 'Aktivno',
+      value: 'activate'
+    }];
   innerDisplayedColumns = ['name', 'email', 'phoneNumber', 'ticketCount', 'paymentCompleted', 'delete'];
+  innerDisplayedColumnsComplex = [
+    {
+      header: 'Ime i prezime',
+      value: 'name' 
+    }, { 
+      header: 'Email',
+      value: 'email' 
+    }, {
+      header: "Broj telefona",
+      value: 'phoneNumber'
+    }, {
+      header: 'Broj karata',
+      value: 'ticketCount'
+    }, {
+      header: 'Plaćanje izvršeno',
+      value: 'paymentCompleted'
+    }, {
+      header: 'Obriši',
+      value: 'delete'
+    }];
   expandedElement!: EventOccurrence | null;
+
+  eventOccurrenceChanges = new Array<EventOccurrence>();
+  reservationsChanges = new Array<Reservation>();
 
   constructor(
     private eventService: EventService,
     private cd: ChangeDetectorRef,
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
-    private reservationService: ReservationService) {
+    private reservationService: ReservationService,
+    private eventOccurrenceService: EventOccurrenceService,
+    private notificationService: NotificationService) {
       matIconRegistry.addSvgIcon(
         `excel_icon`,
         this.domSanitizer.bypassSecurityTrustResourceUrl(`../../../../assets/icons8-microsoft-excel.svg`)
@@ -71,11 +119,11 @@ export class EventOccurrenceOverviewComponent implements OnInit {
   }
 
   loadTableData() {
-    this.eventOccurrences.forEach(eventOccurrence => {
-      if (eventOccurrence.reservations && Array.isArray(eventOccurrence.reservations)) {
-        this.eventOccurrencesData = [...this.eventOccurrencesData, {...eventOccurrence, reservations:(eventOccurrence.reservations)}];
+    this.eventOccurrencesView.forEach(eventOccurrenceView => {
+      if (eventOccurrenceView.reservations && Array.isArray(eventOccurrenceView.reservations)) {
+        this.eventOccurrencesData = [...this.eventOccurrencesData, {...eventOccurrenceView, reservations:(eventOccurrenceView.reservations)}];
       } else {
-        this.eventOccurrencesData = [...this.eventOccurrencesData, eventOccurrence];
+        this.eventOccurrencesData = [...this.eventOccurrencesData, eventOccurrenceView];
       }
     });
 
@@ -94,38 +142,73 @@ export class EventOccurrenceOverviewComponent implements OnInit {
   getEventOccurrences(){
     return this.eventService.getEvent(1).subscribe(data =>
       {
-        this.eventOccurrences = data.eventOccurrences;
+        this.eventOccurrencesView = data.eventOccurrences;
         this.loadTableData();
         this.isLoaded = true;
       }
     )
   }
 
-  onSave(eventOccurrenceId: number){
+  onSaveOuterTable(){
+    let updateEventOccurrences = new EditMultipleEventOccurrencesCommand();
+    updateEventOccurrences.eventOccurrences = new Array<EditEventOccurrenceCommand>();
+    this.eventOccurrenceChanges.forEach(eo =>{
+      updateEventOccurrences.eventOccurrences.push(new EditEventOccurrenceCommand(
+        eo.id, eo.startTime, eo.eventId, eo.isActive, eo.isDeleted, eo.tickets, 
+        eo.reservations.length != 0 ? eo.reservations : this.reservationsChanges.filter(r => r.eventOccurrenceId === eo.id)
+      ))
+    })
+
+    this.eventOccurrenceService.postMultipleEventOccurrences(updateEventOccurrences).subscribe(
+      res => {
+        this.notificationService.showSuccess('Event Occurrences successfully updated! Refresh the page to see the results.', 'Success!');
+      },
+      err => {
+        this.notificationService.showError(err.error.error, 'StatusCode: ' + err.status);
+      });
+  }
+
+  onSaveInnerTable(){
     let updatedReservations = new EditMultipleReservationsCommand();
     updatedReservations.reservations = new Array<EditReservationCommand>;
-    let eventOccurrence = this.separateEventOccurrence(eventOccurrenceId);
-    let arrayReservation = eventOccurrence.reservations as Array<Reservation>
-    arrayReservation.forEach(r => {
+    this.reservationsChanges.forEach(r => {
       updatedReservations.reservations.push(new EditReservationCommand(
-        r.id, r.name, r.email, r.phoneNumber, r.tickets.length, r.eventOccurrenceId, r.paymentCompleted, r.isDeleted))
+        r.id, r.name, r.email, r.phoneNumber, r.tickets.length, r.eventOccurrenceId, r.paymentCompleted, r.isDeleted, r.tickets, r.userId))
     })
 
     this.reservationService.postEventReservations(updatedReservations).subscribe(
-    res => {
-      console.log(res)
-    },
-    err => {
-      console.log(err)
-    });
+      res => {
+        this.notificationService.showSuccess('Reservations successfully updated! Refresh the page to see the results.', 'Success!');
+      },
+      err => {
+        this.notificationService.showError(err.error.error, 'StatusCode: ' + err.status);
+      });
   }
 
-  onDelete(eventOccurrenceId: number, reservationId: number){
-    let eventOccurrence = this.separateEventOccurrence(eventOccurrenceId);
-    eventOccurrence.reservations = eventOccurrence.reservations.filter(r => r.id != reservationId);
+  onDelete(reservation: Reservation){
+    reservation.isDeleted = true;
+    this.reservationsChanges.push(reservation);
+
+    let eventOccurrence = this.separateEventOccurrence(reservation.eventOccurrenceId);
+    eventOccurrence.reservations = eventOccurrence.reservations.filter(r => r.id != reservation.id);
   }
 
   separateEventOccurrence(eventOccurrenceId: number){
     return this.dataSource.data.filter(eo => eo.id == eventOccurrenceId)[0];
+  }
+
+  onCheckboxChangeEventOccurrence(eventOccurrence: EventOccurrence){
+    let currentValue = eventOccurrence.isActive;
+    eventOccurrence.isActive = !currentValue;
+
+    let index = this.eventOccurrenceChanges.findIndex(eo => eo.id === eventOccurrence.id);
+    index === -1 ? this.eventOccurrenceChanges.push(eventOccurrence) : this.eventOccurrenceChanges[index] = eventOccurrence;
+  }
+  onCheckboxChangeReservation(reservation: Reservation){
+    let currentValue = reservation.paymentCompleted;
+    reservation.paymentCompleted = !currentValue;
+
+    let index = this.reservationsChanges.findIndex(r => r.id === reservation.id);
+    index === -1 ? this.reservationsChanges.push(reservation) : this.reservationsChanges[index] = reservation;
   }
 }

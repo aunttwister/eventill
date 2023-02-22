@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { StateService } from 'src/app/services/state.service';
 import { Event } from '../../../models/event';
+import { EventOccurrence } from '../../../models/eventOccurrence';
 import { EventService } from '../../../services/http.services/event.service';
 @Component({
   selector: 'app-event-overview',
@@ -38,5 +39,16 @@ export class EventOverviewComponent implements OnInit {
     let eventOccurrence = this.events[0].eventOccurrences.filter(eo => eo.id == eventOccurrenceId)[0];
     this.stateService.assignEventOccurrence(eventOccurrence);
     this.router.navigateByUrl('/new-reservation/' + eventName + '/' + eventOccurrenceId, {skipLocationChange: false})
+  }
+
+  getTicketState(eventOccurrence: EventOccurrence){
+    return eventOccurrence.tickets.filter(t => t.ticketState == "0").length == 0;
+  }
+
+  filterEventOccurrences(eventOccurrences: Array<EventOccurrence>){
+    return eventOccurrences.filter(eo => eo.isActive);
+  }
+  filterEventOccurrencesLength(eventOccurrences: Array<EventOccurrence>){
+    return eventOccurrences.filter(eo => eo.isActive).length;
   }
 }

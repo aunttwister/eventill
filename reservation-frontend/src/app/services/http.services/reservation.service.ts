@@ -13,7 +13,9 @@ const url = environment.url;
 })
 export class ReservationService {
 
-  private options = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
+  private options = { headers: new HttpHeaders()
+      .set('Authorization', 'Bearer ' + sessionStorage.getItem('access_token'))
+      .set('Content-Type', 'application/json') };
 
   constructor(private http: HttpClient) { }
 

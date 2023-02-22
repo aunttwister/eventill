@@ -1,6 +1,5 @@
 import { Guid } from "guid-typescript"
 import { Ticket } from "./ticket"
-import { User } from "./user"
 
 export class Reservation {
     public id!: number
