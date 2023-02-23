@@ -73,11 +73,10 @@ export class CreateReservationComponent implements OnInit, OnDestroy {
     
     this.reservationService.postReservation(this.newReservation).subscribe(
       res => {
-        console.log(res);
         this.stateService.clearEventOccurrence();
         this.router.navigate(["confirmation/" + this.eventName]);;
       },
-      err => {console.log(err);
+      err => {
         this.notificationService.showError(err.error.error, 'StatusCode: ' + err.status);
       }
     );

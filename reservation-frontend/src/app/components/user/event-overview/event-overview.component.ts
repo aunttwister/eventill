@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NotificationService } from 'src/app/services/notification.service';
 import { StateService } from 'src/app/services/state.service';
 import { Event } from '../../../models/event';
 import { EventOccurrence } from '../../../models/eventOccurrence';
@@ -11,32 +12,35 @@ import { EventService } from '../../../services/http.services/event.service';
 })
 export class EventOverviewComponent implements OnInit {
 
-  events = new Array<Event>();
+  event = new Event();
   mainEvent = new Event();
   isLoaded = false;
 
   constructor(private eventService: EventService,
               private router: Router,
+              private notificationService: NotificationService,
               private stateService: StateService) { }
 
   ngOnInit(): void {
-    this.getEvents()
+    this.getEvents(1, new Date())
   }
 
-  getEvents()
+  getEvents(id: number, from: Date)
   {
-    return this.eventService.getEvents().subscribe(data =>
+    return this.eventService.getEvent(id, from).subscribe(data =>
       {
-        this.events = data;
-        this.mainEvent = data.filter(e => e.name.toUpperCase() == "MIŠOLOVKA")[0];
+        this.mainEvent = data;
         this.isLoaded = true;
+      },
+      err => {
+        this.notificationService.showError(err.error.error, 'StatusCode: ' + err.status);
       }
     )
   }
 
   selectEventOccurrence(eventOccurrenceId: number, eventName: string)
   {
-    let eventOccurrence = this.events[0].eventOccurrences.filter(eo => eo.id == eventOccurrenceId)[0];
+    let eventOccurrence = this.mainEvent.eventOccurrences.filter(eo => eo.id == eventOccurrenceId)[0];
     this.stateService.assignEventOccurrence(eventOccurrence);
     this.router.navigateByUrl('/new-reservation/' + eventName + '/' + eventOccurrenceId, {skipLocationChange: false})
   }

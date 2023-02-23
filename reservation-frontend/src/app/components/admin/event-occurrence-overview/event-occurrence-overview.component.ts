@@ -112,7 +112,6 @@ export class EventOccurrenceOverviewComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('changes are happen');
   }
   ngOnInit(): void {
     this.getEventOccurrences();

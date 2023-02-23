@@ -27,11 +27,10 @@ export class LoginComponent implements OnInit {
     this.authenticationService.postLogin(this.newLogin).subscribe(
       res => {
         const token = res.access_token;
-        console.log(token)
         sessionStorage.setItem('access_token', token);
         this.router.navigate(['admin']);;
       },
-      err => {console.log(err);
+      err => {
         this.notificationService.showError(err.error.error.message, 'StatusCode: ' + err.status);
       }
     );
