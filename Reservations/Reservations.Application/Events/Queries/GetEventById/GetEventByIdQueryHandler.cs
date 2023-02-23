@@ -38,6 +38,11 @@ namespace Reservations.Application.Events.Queries.GetEventById
                 throw new NotFoundException(nameof(Event), request.Id);
             }
 
+            if (request.From.HasValue)
+            {
+                eventInstace.EventOccurrences = eventInstace.EventOccurrences.Where(l => l.StartTime >= request.From.Value).ToList();
+            }
+
             return _mapper.Map<EventDto>(eventInstace);
         }
     }

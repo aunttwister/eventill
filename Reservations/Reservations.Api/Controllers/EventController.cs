@@ -69,9 +69,10 @@ namespace Reservations.Api.Controllers
         [ProducesResponseType(typeof(EventDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetEventAsync(long id)
+        public async Task<IActionResult> GetEventAsync([FromRoute] long id, [FromQuery] GetEventByIdQuery request)
         {
-            var log = await _mediator.Send(new GetEventByIdQuery { Id = id });
+            request.Id = id;
+            var log = await _mediator.Send(request);
             return Ok(log);
         }
     }

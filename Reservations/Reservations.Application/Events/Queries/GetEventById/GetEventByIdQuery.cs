@@ -11,5 +11,6 @@ namespace Reservations.Application.Events.Queries.GetEventById
     public class GetEventByIdQuery : IRequest<EventDto>
     {
         public long Id { get; set; }
+        public DateTime? From { get; set; }
     }
 }
