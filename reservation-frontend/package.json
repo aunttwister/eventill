@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --configuration production && mv dist/reservation-frontend _reservation",
+    "build": "ng build --configuration production && mv dist/reservations-frontend _reservation",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
