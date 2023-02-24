@@ -2,8 +2,9 @@
   "name": "reservations-frontend",
   "version": "0.0.0",
   "scripts": {
+    "ng-high-memory": "node --max_old_space_size=8000 ./node_modules/@angular/cli/bin/ng",
     "ng": "ng",
-    "start": "ng serve --max-old-space-size=4096",
+    "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
