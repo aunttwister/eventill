@@ -1,5 +1,6 @@
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
+EXPOSE 80
 EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
@@ -20,4 +21,5 @@ RUN dotnet publish "Reservations.Api/Reservations.Api.csproj" -c Release -o /src
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /src/publish .
+ENV ASPNETCORE_URLS="https://+:80;https://+:443;"
 ENTRYPOINT ["dotnet", "Reservations.Api.dll"]
