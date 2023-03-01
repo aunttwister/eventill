@@ -20,4 +20,4 @@ FROM base AS final
 WORKDIR /src
 COPY --from=publish /src/publish .
 EXPOSE 80
-ENTRYPOINT ["dotnet", "Reservations.Api.dll"]
+ENTRYPOINT ["dotnet", "Reservations.Api.dll", "--launch-profile publicdev"]
