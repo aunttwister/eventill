@@ -20,6 +20,7 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /src/publish .
 EXPOSE 80
+RUN dotnet dev-certs https
 EXPOSE 443
 ENV ASPNETCORE_URLS="https://+:80;https://+:443;"
 ENTRYPOINT ["dotnet", "Reservations.Api.dll"]
