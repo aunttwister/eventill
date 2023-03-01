@@ -21,6 +21,5 @@ FROM base AS final
 WORKDIR /src
 COPY --from=publish /src/publish .
 EXPOSE 80
-EXPOSE 443
-ENV ASPNETCORE_URLS="https://+:80;https://+:443;"
+ENV ASPNETCORE_URLS="https://+:80;"
 ENTRYPOINT ["dotnet", "Reservations.Api.dll"]
