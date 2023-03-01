@@ -78,8 +78,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseCustomExceptionHandler();
 
-app.UseHttpsRedirection();
-
 app.UseRouting();
 
 app.UseCors(build =>
