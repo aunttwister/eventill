@@ -12,15 +12,15 @@ COPY ["/Reservations.UnitTests/Reservations.UnitTests.csproj", "Reservations.Uni
 RUN dotnet restore "Reservations.Api/Reservations.Api.csproj"
 COPY . .
 RUN dotnet build "Reservations.Api/Reservations.Api.csproj" -c Release -o /src/build
+RUN dotnet dev-certs https
 
 FROM build AS publish
 RUN dotnet publish "Reservations.Api/Reservations.Api.csproj" -c Release -o /src/publish
 
 FROM base AS final
-WORKDIR /app
+WORKDIR /src
 COPY --from=publish /src/publish .
 EXPOSE 80
-RUN dotnet dev-certs https
 EXPOSE 443
 ENV ASPNETCORE_URLS="https://+:80;https://+:443;"
 ENTRYPOINT ["dotnet", "Reservations.Api.dll"]
