@@ -35,7 +35,7 @@
       "httpPort": 8080,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "ASPNETCORE_URLS": "https://+:80;"
+        "ASPNETCORE_URLS": "http://+:80;"
       }
     },
     "Docker": {
