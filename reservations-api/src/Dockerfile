@@ -12,7 +12,6 @@ COPY ["/Reservations.UnitTests/Reservations.UnitTests.csproj", "Reservations.Uni
 RUN dotnet restore "Reservations.Api/Reservations.Api.csproj"
 COPY . .
 RUN dotnet build "Reservations.Api/Reservations.Api.csproj" -c Release -o /src/build
-RUN dotnet dev-certs https --trust
 
 FROM build AS publish
 RUN dotnet publish "Reservations.Api/Reservations.Api.csproj" -c Release -o /src/publish
@@ -21,6 +20,5 @@ FROM base AS final
 WORKDIR /src
 COPY --from=publish /src/publish .
 EXPOSE 80
-EXPOSE 8080
 ENV ASPNETCORE_URLS="https://+:80;"
-ENTRYPOINT ["dotnet", "Reservations.Api.dll", "--launch-profile publicdev"]
+ENTRYPOINT ["dotnet", "Reservations.Api.dll", "--launch-profile Docker"]

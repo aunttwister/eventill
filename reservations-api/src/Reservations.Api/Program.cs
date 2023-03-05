@@ -78,7 +78,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseCustomExceptionHandler();
 
-app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
