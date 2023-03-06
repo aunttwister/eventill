@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "node --max_old_space_size=1024 ./node_modules/@angular/cli/bin/ng serve --host=0.0.0.0",
+    "start": "node --max_old_space_size=1024 ./node_modules/@angular/cli/bin/ng serve --host=0.0.0.0 --configuration production",
     "build": "ng build --configuration production && mv dist/reservations-frontend _reservation",
-    "watch": "ng build --watch --configuration development",
+    "watch": "ng build --watch --configuration production",
     "test": "ng test"
   },
   "private": true,

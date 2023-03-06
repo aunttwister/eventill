@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  url: 'http://dynamictwist.com/api/'
+  url: 'http://api.artisti.rs/api/'
 };
