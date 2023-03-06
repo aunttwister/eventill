@@ -31,10 +31,10 @@
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "http://+:8080",
-      "httpPort": 8080,
+      "applicationUrl": "http://+:80",
+      "httpPort": 80,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_ENVIRONMENT": "Production",
         "ASPNETCORE_URLS": "http://+:80;"
       }
     },
