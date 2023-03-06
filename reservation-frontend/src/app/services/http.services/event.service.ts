@@ -20,8 +20,6 @@ export class EventService {
   }
 
   getEvent(id: number, from?: Date): Observable<Event> {
-    console.log(from)
-
     let options = { params: new HttpParams() }; 
 
     if (from !== undefined)
@@ -31,7 +29,6 @@ export class EventService {
           'from' : this.datePipe.transform(from, 'yyyy-MM-dd HH:mm') as string
         }
       })
-      console.log(options.params)
     }
     return this.http.get<Event>(url + 'Event/' + id, options);
   }

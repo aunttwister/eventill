@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticateUserCommand } from 'src/app/request-commands/authenticateUserCommand';
-import { AuthenticationService } from 'src/app/services/authentication.service';
+import { AuthenticationService } from 'src/app/services/http.services/authentication.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { Router } from '@angular/router';
 
