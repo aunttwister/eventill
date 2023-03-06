@@ -71,21 +71,18 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 
-if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
+app.UseSwagger(options => options.RouteTemplate = "swagger/{documentName}/swagger.json");
+app.UseSwaggerUI(options =>
+{
+    options.SwaggerEndpoint($"v1/swagger.json", "Reservations API");
+});
+
+if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
-    app.UseSwagger();
-    app.UseSwaggerUI(options =>
-    {
-        options.InjectStylesheet("https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.3/swagger-ui.css");
-        options.InjectJavascript("https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.3/swagger-ui-bundle.js", "text/javascript");
-        options.InjectJavascript("https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.3/swagger-ui-standalone-preset.js", "text/javascript");
-        options.SwaggerEndpoint($"v1/swagger.json", "Reservations API");
-    });
 }
-else
 
-    app.UseCustomExceptionHandler();
+app.UseCustomExceptionHandler();
 
 app.UseStaticFiles();
 

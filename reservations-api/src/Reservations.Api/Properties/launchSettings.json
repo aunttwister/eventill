@@ -32,7 +32,6 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "applicationUrl": "http://+:80",
-      "httpPort": 80,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Production",
         "ASPNETCORE_URLS": "http://+:80;"
