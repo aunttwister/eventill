@@ -22,6 +22,7 @@ namespace Reservations.Persistance
         private static void AddReservationsDbContext(IServiceCollection services, IConfiguration configuration)
         {
             var connectionString = configuration.GetConnectionString("ReservationDb");
+            Console.WriteLine(connectionString);
 
                 services.AddDbContext<ReservationDbContext>(options =>
                 options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), mySqlOptions =>
