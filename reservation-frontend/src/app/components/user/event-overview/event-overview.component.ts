@@ -22,7 +22,9 @@ export class EventOverviewComponent implements OnInit {
               private stateService: StateService) { }
 
   ngOnInit(): void {
-    this.getEvents(1, new Date())
+    let dateNow = new Date();
+    console.log(dateNow)
+    this.getEvents(1, dateNow)
   }
 
   getEvents(id: number, from: Date)
