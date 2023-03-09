@@ -23,7 +23,6 @@ export class EventOverviewComponent implements OnInit {
 
   ngOnInit(): void {
     let dateNow = new Date();
-    console.log(dateNow)
     this.getEvents(1, dateNow)
   }
 
@@ -32,6 +31,7 @@ export class EventOverviewComponent implements OnInit {
     return this.eventService.getEvent(id, from).subscribe(data =>
       {
         this.mainEvent = data;
+        console.log(this.mainEvent)
         this.isLoaded = true;
       },
       err => {
@@ -55,6 +55,7 @@ export class EventOverviewComponent implements OnInit {
     return eventOccurrences.filter(eo => eo.isActive);
   }
   filterEventOccurrencesLength(eventOccurrences: Array<EventOccurrence>){
+    console.log(eventOccurrences)
     return eventOccurrences.filter(eo => eo.isActive).length;
   }
 }
