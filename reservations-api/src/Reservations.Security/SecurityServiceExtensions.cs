@@ -7,6 +7,7 @@ using Reservations.Security.Common.Interfaces;
 using Reservations.Security.Common.Options;
 using Reservations.Security.Common.Services;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -27,6 +28,11 @@ namespace Reservations.Security
             services.AddAutoMapper(typeof(SecurityServiceExtensions).Assembly);
 
             services.Configure<TokenProviderOptions>(configuration.GetSection("JWTAuthentication"));
+
+            foreach (DictionaryEntry e in System.Environment.GetEnvironmentVariables())
+            {
+                Console.WriteLine(e.Key + ":" + e.Value);
+            }
 
             services.AddTransient<Common.Interfaces.IAuthenticationService, AuthenticationService>();
             services.AddTransient<ITokenProviderService, TokenProviderService>();
