@@ -23,15 +23,15 @@ export class EventOverviewComponent implements OnInit {
 
   ngOnInit(): void {
     let dateNow = new Date();
-    this.getEvents(1, dateNow)
+    let eventName = "MIŠOLOVKA";
+    this.getEvent(eventName, dateNow)
   }
 
-  getEvents(id: number, from: Date)
+  getEvent(eventName: string, from: Date)
   {
-    return this.eventService.getEvent(id, from).subscribe(data =>
+    return this.eventService.getEvent(eventName, from).subscribe(data =>
       {
         this.mainEvent = data;
-        console.log(this.mainEvent)
         this.isLoaded = true;
       },
       err => {
