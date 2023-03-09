@@ -21,6 +21,7 @@ namespace Reservations.Application
             Assembly.GetExecutingAssembly());
             services.AddAutoMapper(typeof(ApplicationServiceExtensions).Assembly);
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(RequestAuthorizationBehavior<,>));
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(RequestLoggingBehavior<,>));
 
             services.AddTransient<IEventSetupService, EventSetupService>();
             services.AddTransient<ITicketService, TicketService>();
