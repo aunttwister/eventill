@@ -19,7 +19,7 @@
                             max-height: 50%;
                             max-width: 100%;">
                     <div class="grid-div scrollbar" style="margin-bottom: 15px;" 
-                    *ngIf="filterEventOccurrencesLength(mainEvent.eventOccurrences) != 0 || filterEventOccurrences(mainEvent.eventOccurrences) === null; else event_occurrences_unavailable">
+                    *ngIf="filterEventOccurrencesLength(mainEvent.eventOccurrences) != 0; else event_occurrences_unavailable">
                         <div *ngFor="let eventOccurrence of filterEventOccurrences(mainEvent.eventOccurrences);">
                             <div class="grid-child">
                                 <button [disabled]="getTicketState(eventOccurrence)" class="btn" (click)="selectEventOccurrence(eventOccurrence.id, mainEvent.name)" style="width: 120px; margin-bottom: 6px;">
