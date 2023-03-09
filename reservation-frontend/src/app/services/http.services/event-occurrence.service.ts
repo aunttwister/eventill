@@ -12,7 +12,9 @@ const url = environment.url;
 })
 export class EventOccurrenceService {
   
-  private options = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
+  private options = { headers: new HttpHeaders()
+    .set('Content-Type', 'application/json')
+    .set('Authorization', 'Bearer ' + sessionStorage.getItem('access_token') as string) };
 
   constructor(private http: HttpClient) { }
 
@@ -21,7 +23,9 @@ export class EventOccurrenceService {
   }
 
   postMultipleEventOccurrences(editEventOccurrences: EditMultipleEventOccurrencesCommand) {
+    console.log(this.options)
     let request = JSON.stringify(editEventOccurrences);
+    console.log(request)
     return this.http.post(url + 'EventOccurrence/edit/multiple/', request, this.options);
   }
 }

@@ -114,8 +114,8 @@ export class EventOccurrenceOverviewComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges): void {
   }
   ngOnInit(): void {
-    let eventName = "MIŠOLOVKA";
-    this.getEventOccurrences(eventName);
+    let eventId = 1;
+    this.getEventOccurrences(eventId);
   }
 
   loadTableData() {
@@ -139,8 +139,8 @@ export class EventOccurrenceOverviewComponent implements OnInit {
     this.innerTables.forEach((table, index) => (table.dataSource as MatTableDataSource<Reservation>).sort = this.innerSort.toArray()[index]);
   }
 
-  getEventOccurrences(eventName: string){
-    return this.eventService.getEvent(eventName).subscribe(data =>
+  getEventOccurrences(id: number){
+    return this.eventService.getEvent(id).subscribe(data =>
       {
         this.eventOccurrencesView = data.eventOccurrences;
         this.loadTableData();
@@ -164,7 +164,7 @@ export class EventOccurrenceOverviewComponent implements OnInit {
         this.notificationService.showSuccess('Event Occurrences successfully updated! Refresh the page to see the results.', 'Success!');
       },
       err => {
-        this.notificationService.showError(err.error.error, 'StatusCode: ' + err.status);
+        this.notificationService.showError(err.error.error.message, 'StatusCode: ' + err.status);
       });
   }
 

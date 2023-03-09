@@ -19,7 +19,7 @@ export class EventService {
     return this.http.get<Event[]>(url + 'Event');
   }
 
-  getEvent(eventName: string, from?: Date): Observable<Event> {
+  getEvent(id: number, from?: Date): Observable<Event> {
     let options = { params: new HttpParams() }; 
 
     if (from !== undefined)
@@ -30,7 +30,7 @@ export class EventService {
         }
       })
     }
-    return this.http.get<Event>(url + 'Event/' + eventName, options);
+    return this.http.get<Event>(url + 'Event/' + id, options);
   }
 
   getHttpParam(params: any[]) {
