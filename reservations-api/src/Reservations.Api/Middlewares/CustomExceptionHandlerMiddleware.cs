@@ -57,6 +57,10 @@ namespace Reservations.Api.Middlewares
                 //    code = HttpStatusCode.BadRequest;
                 //    result = JsonConvert.SerializeObject(new { errors = validationException.Failures });
                 //    break;
+                case UnauthorizedAccessException _:
+                    code = HttpStatusCode.Unauthorized;
+                    result = JsonConvert.SerializeObject(new { error = exception.Message });
+                    break;
                 case NotFoundException _:
                     code = HttpStatusCode.NotFound;
                     result = JsonConvert.SerializeObject(new { error = exception.Message });
