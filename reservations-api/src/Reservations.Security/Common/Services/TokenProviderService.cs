@@ -21,14 +21,13 @@ namespace Reservations.Security.Common.Services
         {
             _options = options.Value;
         }
-        public object GenerateToken(Guid userId, string roleName)
+        public object GenerateToken(string userEmail, string roleName)
         {
-            DateTime now = DateTime.UtcNow;
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier, userId.ToString())
+                new Claim(ClaimTypes.NameIdentifier, userEmail),
+                new Claim(ClaimTypes.Role, roleName)
             };
-            claims.Add(new Claim(ClaimTypes.Role, roleName));
 
             byte[] tokenKey = Encoding.ASCII.GetBytes(_options.Secret);
 
@@ -36,8 +35,7 @@ namespace Reservations.Security.Common.Services
                 issuer: _options.Issuer,
                 audience: _options.Audiences.First(),
                 claims: claims,
-                notBefore: now,
-                expires: now.Add(_options.Expiration),
+                expires: DateTime.UtcNow.Add(_options.Expiration),
                 signingCredentials: _options.SigningCredentials = new SigningCredentials(
                     new SymmetricSecurityKey(tokenKey),
                     SecurityAlgorithms.HmacSha256Signature));
@@ -54,6 +52,24 @@ namespace Reservations.Security.Common.Services
         public string GenerateRefreshToken(string userId)
         {
             throw new NotImplementedException();
+        }
+
+        public ClaimsPrincipal ExtractClaims(string encodedString)
+        {
+            var token = new JwtSecurityToken(encodedString);
+            var tokenKey = Encoding.ASCII.GetBytes(_options.Secret);
+
+            TokenValidationParameters tokenValidationParameters = new TokenValidationParameters()
+            {
+                ValidateLifetime = true,
+                ValidAudiences = _options.Audiences,
+                ValidIssuer = _options.Issuer,
+                IssuerSigningKey = new SymmetricSecurityKey(tokenKey),
+                ClockSkew = TimeSpan.Zero
+            };
+
+            SecurityToken validatedToken;
+            return new JwtSecurityTokenHandler().ValidateToken(encodedString, tokenValidationParameters, out validatedToken);
         }
     }
 }

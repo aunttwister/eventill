@@ -25,7 +25,9 @@ namespace Reservations.Application.Users.Commands.CreateGuestUser
         }
         public async Task<User> Handle(CreateGuestUserCommand request, CancellationToken cancellationToken)
         {
-            User user = await _dbContext.Users.GetUserByEmailAsync(request.Email, cancellationToken);
+            User user = await _dbContext.Users.GetUserByEmailAsync(
+                email: request.Email, 
+                cancellationToken: cancellationToken);
 
             if (user != null)
             {

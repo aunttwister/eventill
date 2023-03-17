@@ -6,7 +6,7 @@ using Reservations.Application.Common.Exceptions;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using Reservations.Application.Users.Queries.GetUserByEmail;
-
+using Reservations.Security.Common.Interfaces;
 
 namespace Reservations.Api.Services
 {
@@ -14,15 +14,18 @@ namespace Reservations.Api.Services
     {
         private UserDto _currentUser;
         private readonly IMediator _mediator;
+        private readonly ITokenProviderService _tokenProviderService;
 
         /// <summary>
         /// ctor
         /// </summary>
         /// <param name="httpContextAccessor"></param>
         /// <param name="mediator"></param>
-        public CurrentUserService(IHttpContextAccessor httpContextAccessor, IMediator mediator)
+        public CurrentUserService(IHttpContextAccessor httpContextAccessor, IMediator mediator, ITokenProviderService tokenProviderService)
         {
+            _tokenProviderService = tokenProviderService;
             _mediator = mediator;
+            RegisterClaims(httpContextAccessor);
             Email = httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
             IsAuthenticated = Email != null;
         }
@@ -60,6 +63,12 @@ namespace Reservations.Api.Services
             }
 
             return _currentUser;
+        }
+
+        private void RegisterClaims(IHttpContextAccessor httpContextAccessor)
+        {
+            var token = httpContextAccessor.HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);
+            httpContextAccessor.HttpContext.User = _tokenProviderService.ExtractClaims(token);
         }
     }
 }

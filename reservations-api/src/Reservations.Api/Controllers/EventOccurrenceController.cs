@@ -1,4 +1,6 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Reservations.Application.DataTransferObjects;
 using Reservations.Application.EventOccurrences.Commands.EditMultipleEventOccurrences;
@@ -30,7 +32,7 @@ namespace Reservations.Api.Controllers
         [ProducesResponseType(typeof(List<EventOccurrenceDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        //[Authorize(AuthenticationSchemes = "Bearer")]
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> EditMultipleEventOccurrencesAsync([FromBody] EditMultipleEventOccurrencesCommand request)
         {
             var log = await _mediator.Send(request);

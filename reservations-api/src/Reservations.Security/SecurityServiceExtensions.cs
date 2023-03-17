@@ -29,11 +29,6 @@ namespace Reservations.Security
 
             services.Configure<TokenProviderOptions>(configuration.GetSection("JWTAuthentication"));
 
-            foreach (DictionaryEntry e in System.Environment.GetEnvironmentVariables())
-            {
-                Console.WriteLine(e.Key + ":" + e.Value);
-            }
-
             services.AddTransient<Common.Interfaces.IAuthenticationService, AuthenticationService>();
             services.AddTransient<ITokenProviderService, TokenProviderService>();
         }

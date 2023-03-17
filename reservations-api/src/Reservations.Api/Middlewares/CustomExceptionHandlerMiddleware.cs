@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using System;
 using System.Net;
 using System.Threading.Tasks;
+using Reservations.Application.Exceptions;
 
 namespace Reservations.Api.Middlewares
 {
@@ -57,7 +58,7 @@ namespace Reservations.Api.Middlewares
                 //    code = HttpStatusCode.BadRequest;
                 //    result = JsonConvert.SerializeObject(new { errors = validationException.Failures });
                 //    break;
-                case UnauthorizedAccessException _:
+                case UnauthorizedException _:
                     code = HttpStatusCode.Unauthorized;
                     result = JsonConvert.SerializeObject(new { error = exception.Message });
                     break;

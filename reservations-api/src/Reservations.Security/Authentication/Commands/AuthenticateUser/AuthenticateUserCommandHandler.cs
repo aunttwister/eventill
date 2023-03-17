@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Reservations.Application.Common.Exceptions;
 using Reservations.Application.Common.Interfaces;
+using Reservations.Application.Exceptions;
 using Reservations.Domain;
 using Reservations.Security.Common.Interfaces;
 using System;
@@ -31,11 +33,17 @@ namespace Reservations.Security.Authentication.Commands.AuthenticateUser
         {
             User user = await _dbContext.Users.Include(u => u.LoginDetails).Include(u => u.Role).FirstOrDefaultAsync(u => u.Email == request.Email);
 
+            if (user == null)
+                throw new NotFoundException(nameof(User), request.Email);
+
+            if (user.LoginDetails == null)
+                throw new NotFoundException(nameof(LoginDetails), "");
+
             bool verifyResponse = _authenticationService.Verify(request.Password, user.LoginDetails.Salt, user.LoginDetails.HashPassword);
             if (verifyResponse == false)
-                throw new UnauthorizedAccessException();
+                throw new UnauthorizedException("User is not authorized.");
 
-            return _tokenProviderService.GenerateToken(user.Id, user.Role.Name);
+            return _tokenProviderService.GenerateToken(user.Email, user.Role.Name);
         }
     }
 }

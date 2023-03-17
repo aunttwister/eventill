@@ -13,6 +13,7 @@ const url = environment.url;
 export class EventOccurrenceService {
   
   private options = { headers: new HttpHeaders()
+    .set('Authorization', 'Bearer ' + sessionStorage.getItem('access_token'))
     .set('Content-Type', 'application/json')};
 
   constructor(private http: HttpClient) { }

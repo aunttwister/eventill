@@ -11,12 +11,17 @@ namespace Reservations.Application.Common.Extensions
     public static class UserDbExtensions
     {
         public static async Task<User> GetUserByEmailAsync(
-            this DbSet<User> users, string email, CancellationToken cancellationToken = default)
+            this DbSet<User> users, string email, bool includeRoles = false, CancellationToken cancellationToken = default)
         {
             IQueryable<User> userQuery = users.AsQueryable();
 
+            if (includeRoles)
+            {
+                userQuery = userQuery.Include(u => u.Role);
+            }
+
             return await userQuery
-                .FirstOrDefaultAsync(u => u.Email.ToLower() == email.ToLower(), cancellationToken);
+                .FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
         }
     }
 }
