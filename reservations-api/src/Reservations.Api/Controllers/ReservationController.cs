@@ -69,7 +69,7 @@ namespace Reservations.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditMultipleReservationsAsync([FromBody] EditMultipleReservationsCommand request)
         {
             await _mediator.Send(request);
