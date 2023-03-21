@@ -10,12 +10,12 @@
         <div *ngIf="column.value === 'activate'">
           <mat-checkbox 
           style="padding-right: 37px;" 
-          [disabled]="eventOccurrence.reservations.length != 0" 
+          [disabled]="eventOccurrence.reservations.length != 0 || !pastDate(eventOccurrence.startTime)" 
           [checked]="eventOccurrence.isActive"
           (change)="onCheckboxChangeEventOccurrence(eventOccurrence)"></mat-checkbox>
         </div>
         <div *ngIf="column.value === 'startTime'; else default_content">
-          {{eventOccurrence[column.value] | date: 'MM.dd.YYYY HH:mm'}}
+          {{eventOccurrence[column.value] | date: 'dd.MM.YYYY HH:mm'}}
         </div>
         <ng-template #default_content>{{eventOccurrence[column.value]}} </ng-template>
       </td>

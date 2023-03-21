@@ -23,7 +23,7 @@
                         <div *ngFor="let eventOccurrence of filterEventOccurrences(mainEvent.eventOccurrences);">
                             <div class="grid-child">
                                 <button [disabled]="getTicketState(eventOccurrence)" class="btn" (click)="selectEventOccurrence(eventOccurrence.id, mainEvent.name)" style="width: 120px; margin-bottom: 6px;">
-                                    <span class="btn-data bold-font">{{eventOccurrence.startTime | date: 'MM.dd HH:mm'}}</span>
+                                    <span class="btn-data bold-font">{{eventOccurrence.startTime | date: 'dd.MM HH:mm'}}</span>
                                 </button>
                             </div>
                         </div>

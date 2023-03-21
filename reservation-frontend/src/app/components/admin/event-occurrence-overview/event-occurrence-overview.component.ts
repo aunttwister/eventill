@@ -43,6 +43,7 @@ export class EventOccurrenceOverviewComponent implements OnInit {
   @ViewChildren('innerSort') innerSort!: QueryList<MatSort>;
   @ViewChildren('innerTables') innerTables!: QueryList<MatTable<Reservation>>;
 
+  now = new Date();
   eventOccurrencesView = new Array<EventOccurrence>();
   eventOccurrencesData: EventOccurrence[] = [];
   dataSource!: MatTableDataSource<EventOccurrence>;
@@ -169,14 +170,14 @@ export class EventOccurrenceOverviewComponent implements OnInit {
   }
 
   onSaveInnerTable(){
-    let updatedReservations = new EditMultipleReservationsCommand();
-    updatedReservations.reservations = new Array<EditReservationCommand>;
+    let updateReservations = new EditMultipleReservationsCommand();
+    updateReservations.reservations = new Array<EditReservationCommand>;
     this.reservationsChanges.forEach(r => {
-      updatedReservations.reservations.push(new EditReservationCommand(
+      updateReservations.reservations.push(new EditReservationCommand(
         r.id, r.name, r.email, r.phoneNumber, r.tickets.length, r.eventOccurrenceId, r.paymentCompleted, r.isDeleted, r.tickets, r.userId))
     })
 
-    this.reservationService.postEventReservations(updatedReservations).subscribe(
+    this.reservationService.postEventReservations(updateReservations).subscribe(
       res => {
         this.notificationService.showSuccess('Reservations successfully updated! Refresh the page to see the results.', 'Success!');
       },
@@ -210,5 +211,10 @@ export class EventOccurrenceOverviewComponent implements OnInit {
 
     let index = this.reservationsChanges.findIndex(r => r.id === reservation.id);
     index === -1 ? this.reservationsChanges.push(reservation) : this.reservationsChanges[index] = reservation;
+  }
+
+  pastDate(date: Date)
+  {
+    return this.now > date;
   }
 }
