@@ -1,14 +1,15 @@
 ﻿using Reservations.Application.Authorization;
 using Reservations.Application.Common.Interfaces;
+using Reservations.Application.Reservations.Commands.EditMultipleReservation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Reservations.Application.EventOccurrences.Commands.EditMultipleEventOccurrences
+namespace Reservations.Application.EventOccurrences.Commands.EditMultipleReservations
 {
-    public class EditMultipleReservationsCommandAuthorizer : IRequestAuthorizer<EditMultipleEventOccurrencesCommand>
+    public class EditMultipleReservationsCommandAuthorizer : IRequestAuthorizer<EditMultipleReservationsCommand>
     {
         private readonly ICurrentUserService _currentUserService;
         public EditMultipleReservationsCommandAuthorizer(ICurrentUserService currentUserService)
@@ -16,7 +17,7 @@ namespace Reservations.Application.EventOccurrences.Commands.EditMultipleEventOc
             _currentUserService = currentUserService;
         }
 
-        public async Task<AuthorizationResult> EvaluateAuthorizationAsync(EditMultipleEventOccurrencesCommand request, CancellationToken cancellationToken = default)
+        public async Task<AuthorizationResult> EvaluateAuthorizationAsync(EditMultipleReservationsCommand request, CancellationToken cancellationToken = default)
         {
             var user = await _currentUserService.GetCurrentUserAsync();
 

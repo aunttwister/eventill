@@ -31,11 +31,20 @@ namespace Reservations.Application.Reservations.Commands.CreateReservation
         }
         public async Task<ReservationDto> Handle(CreateReservationCommand request, CancellationToken cancellationToken)
         {
-            EventOccurrence eventOccurrence = await _dbContext.EventOccurrences.Include(eo => eo.Tickets)
+            EventOccurrence eventOccurrence = await _dbContext.EventOccurrences
+                .Include(eo => eo.Tickets)
+                .Include(eo => eo.Reservations)
+                .ThenInclude(r => r.User)
                 .FirstOrDefaultAsync(eo => eo.Id == request.EventOccurrenceId, cancellationToken);
 
+            if (eventOccurrence == null)
+                throw new NotFoundException(nameof(EventOccurrence), request.EventOccurrenceId);
+            
             if (!eventOccurrence.IsActive)
                 throw new BadRequestException($"Event occurrence with the start date: {eventOccurrence.StartTime} is not active.");
+
+            if (eventOccurrence.Reservations.Any(r => r.User.Email == request.Email))
+                throw new BadRequestException($"User with email {request.Email} has already created a reservation for this event occurrence.");
 
             IEnumerable<Ticket> availableTickets = eventOccurrence.Tickets.Where(t => t.TicketState == TicketState.Available);
 

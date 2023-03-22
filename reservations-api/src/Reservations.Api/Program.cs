@@ -41,9 +41,7 @@ builder.Services.AddAuthentication(options =>
             .AddJwtBearer(options =>
             {
                 //options.Authority = builder.Configuration.GetSection("JWTAuthentication:Authority").Value;
-                options.MapInboundClaims = true;
                 options.SaveToken = true;
-                options.RequireHttpsMetadata = false;
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = true,

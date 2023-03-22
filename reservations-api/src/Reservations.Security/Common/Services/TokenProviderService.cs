@@ -61,7 +61,7 @@ namespace Reservations.Security.Common.Services
 
             TokenValidationParameters tokenValidationParameters = new TokenValidationParameters()
             {
-                ValidateLifetime = true,
+                ValidateLifetime = false,
                 ValidAudiences = _options.Audiences,
                 ValidIssuer = _options.Issuer,
                 IssuerSigningKey = new SymmetricSecurityKey(tokenKey),

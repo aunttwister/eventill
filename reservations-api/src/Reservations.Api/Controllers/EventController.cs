@@ -6,7 +6,6 @@ using Reservations.Application.Events.Commands.DeleteEvent;
 using Reservations.Application.Events.Commands.EditEvent;
 using Reservations.Application.Events.Queries.GetEventById;
 using Reservations.Application.Events.Queries.GetEvents;
-using Reservations.Application.Reservations.Commands.CreateReservation;
 
 namespace Reservations.Api.Controllers
 {
