@@ -30,6 +30,7 @@ namespace Reservations.Api.Controllers
         [ProducesResponseType(typeof(ReservationDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize]
         public async Task<IActionResult> CreateReservationAsync([FromBody] CreateReservationCommand request)
         {
             var log = await _mediator.Send(request);
@@ -40,6 +41,7 @@ namespace Reservations.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize]
         public async Task<IActionResult> ConfirmPaymentReservationsAsync([FromBody] ConfirmPaymentCompletedCommand request)
         {
             await _mediator.Send(request);
@@ -50,6 +52,8 @@ namespace Reservations.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize]
+
         public async Task<IActionResult> DeleteReservationAsync([FromRoute] long id)
         {
             await _mediator.Send(new DeleteReservationCommand { Id = id });
@@ -70,7 +74,7 @@ namespace Reservations.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize]
         public async Task<IActionResult> EditMultipleReservationsAsync([FromBody] EditMultipleReservationsCommand request)
         {
             await _mediator.Send(request);

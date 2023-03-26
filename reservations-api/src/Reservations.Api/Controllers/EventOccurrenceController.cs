@@ -32,7 +32,7 @@ namespace Reservations.Api.Controllers
         [ProducesResponseType(typeof(List<EventOccurrenceDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize]
         public async Task<IActionResult> EditMultipleEventOccurrencesAsync([FromBody] EditMultipleEventOccurrencesCommand request)
         {
             var log = await _mediator.Send(request);

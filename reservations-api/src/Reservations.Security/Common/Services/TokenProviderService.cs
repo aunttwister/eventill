@@ -29,7 +29,7 @@ namespace Reservations.Security.Common.Services
                 new Claim(ClaimTypes.Role, roleName)
             };
 
-            byte[] tokenKey = Encoding.ASCII.GetBytes(_options.Secret);
+            byte[] tokenKey = Convert.FromBase64String(_options.Secret);
 
             var jwt = new JwtSecurityToken(
                 issuer: _options.Issuer,
@@ -38,7 +38,7 @@ namespace Reservations.Security.Common.Services
                 expires: DateTime.UtcNow.Add(_options.Expiration),
                 signingCredentials: _options.SigningCredentials = new SigningCredentials(
                     new SymmetricSecurityKey(tokenKey),
-                    SecurityAlgorithms.HmacSha256Signature));
+                    SecurityAlgorithms.HmacSha256));
 
             string token = new JwtSecurityTokenHandler().WriteToken(jwt);
 
@@ -57,11 +57,14 @@ namespace Reservations.Security.Common.Services
         public ClaimsPrincipal ExtractClaims(string encodedString)
         {
             var token = new JwtSecurityToken(encodedString);
-            var tokenKey = Encoding.ASCII.GetBytes(_options.Secret);
+            byte[] tokenKey = Convert.FromBase64String(_options.Secret);
 
             TokenValidationParameters tokenValidationParameters = new TokenValidationParameters()
             {
                 ValidateLifetime = false,
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                ValidateIssuerSigningKey = false,
                 ValidAudiences = _options.Audiences,
                 ValidIssuer = _options.Issuer,
                 IssuerSigningKey = new SymmetricSecurityKey(tokenKey),

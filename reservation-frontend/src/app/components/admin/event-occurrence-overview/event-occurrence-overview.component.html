@@ -10,7 +10,7 @@
         <div *ngIf="column.value === 'activate'">
           <mat-checkbox 
           style="padding-right: 37px;" 
-          [disabled]="eventOccurrence.reservations.length != 0 || !pastDate(eventOccurrence.startTime)" 
+          [disabled]="eventOccurrence.reservations.length != 0" 
           [checked]="eventOccurrence.isActive"
           (change)="onCheckboxChangeEventOccurrence(eventOccurrence)"></mat-checkbox>
         </div>

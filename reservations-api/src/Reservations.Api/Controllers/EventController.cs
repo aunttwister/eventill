@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Reservations.Application.DataTransferObjects;
 using Reservations.Application.Events.Commands.CreateEvent;
@@ -24,6 +25,7 @@ namespace Reservations.Api.Controllers
         [ProducesResponseType(typeof(EventDto), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize]
         public async Task<IActionResult> CreateEventAsync([FromBody] CreateEventCommand request)
         {
             var response = await _mediator.Send(request);
@@ -34,6 +36,7 @@ namespace Reservations.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize]
         public async Task<IActionResult> EditEventAsync([FromRoute] long id, [FromBody] EditEventCommand request)
         {
             if (id != request.Id)
@@ -49,6 +52,7 @@ namespace Reservations.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize]
         public async Task<IActionResult> DeleteEventAsync([FromRoute] long id)
         {
             await _mediator.Send(new DeleteEventCommand { Id = id });

@@ -1,8 +1,7 @@
-using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Reservations.Api.Authorization;
 using Reservations.Api.Middlewares;
 using Reservations.Api.Services;
@@ -10,7 +9,6 @@ using Reservations.Application;
 using Reservations.Application.Common.Interfaces;
 using Reservations.Persistance;
 using Reservations.Security;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,7 +25,44 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers(options => options.SuppressAsyncSuffixInActionNames = false);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "Artisti Reservations API (v1)",
+        Description = "<p>Provides API endpoints for Artisti Reservations application.</p>"
+                    + "<p><h3>Authorization</h3>Authorization is maintained through in house identity management with leveraging oauth2 flow."
+                    + "<br/>In order to use system level integration, user needs to be created in the database. "
+                    + "After setting up system level user, auth token can be retrieved by using Postman Login endpoint.</p>"
+    });
+    options.AddSecurityDefinition("Bearer",
+                new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please enter the JWT token in format: Bearer {JWT_TOKEN}",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
+                });
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            },
+                            Scheme = "oauth2",
+                            Name = "Bearer",
+                            In = ParameterLocation.Header,
+
+                        },
+                        new List<string>()
+                    }
+                });
+});
 
 builder.Services.AddHttpContextAccessor();
 
@@ -47,13 +82,14 @@ builder.Services.AddAuthentication(options =>
                     ValidateIssuer = true,
                     ValidateAudience = true,
                     ValidateLifetime = true,
+                    ValidIssuer = builder.Configuration.GetSection("JWTAuthentication:Issuer").Value,
                     ValidateIssuerSigningKey = true,
                     ValidAudiences = builder.Configuration.GetSection("JWTAuthentication")?
                     .GetSection("Audiences")?
                     .GetChildren()?.Select(x => x.Value)?
                     .ToList(),
                     IssuerSigningKey = new SymmetricSecurityKey(
-                        Encoding.ASCII.GetBytes(builder.Configuration.GetSection("JWTAuthentication:Secret").Value))
+                        Convert.FromBase64String(builder.Configuration.GetSection("JWTAuthentication:Secret").Value))
                 };
             });
 
