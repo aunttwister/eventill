@@ -30,7 +30,6 @@ namespace Reservations.Api.Controllers
         [ProducesResponseType(typeof(ReservationDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [Authorize]
         public async Task<IActionResult> CreateReservationAsync([FromBody] CreateReservationCommand request)
         {
             var log = await _mediator.Send(request);

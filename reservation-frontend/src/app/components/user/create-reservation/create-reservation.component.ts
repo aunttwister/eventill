@@ -28,7 +28,7 @@ export class CreateReservationComponent implements OnInit, OnDestroy {
     {
       name: new FormControl("", Validators.required),
       email: new FormControl("", [Validators.required, Validators.email]),
-      phoneNumber: new FormControl("", Validators.required),
+      phoneNumber: new FormControl(""),
       ticketCount: new FormControl<number>(1,  [Validators.required, Validators.min(1), Validators.max(2)])
     }
   )
@@ -69,7 +69,6 @@ export class CreateReservationComponent implements OnInit, OnDestroy {
       });
     
     this.mapFormToModel()
-    console.log(this.newReservation)
     
     this.reservationService.postReservation(this.newReservation).subscribe(
       res => {
