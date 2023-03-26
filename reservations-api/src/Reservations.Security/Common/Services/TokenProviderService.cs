@@ -64,7 +64,7 @@ namespace Reservations.Security.Common.Services
                 ValidateLifetime = false,
                 ValidateIssuer = false,
                 ValidateAudience = false,
-                ValidateIssuerSigningKey = false,
+                ValidateIssuerSigningKey = true,
                 ValidAudiences = _options.Audiences,
                 ValidIssuer = _options.Issuer,
                 IssuerSigningKey = new SymmetricSecurityKey(tokenKey),
