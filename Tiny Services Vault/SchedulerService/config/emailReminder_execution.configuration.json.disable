@@ -1,0 +1,7 @@
+"emailSender": {
+	"path": "...",
+	"arguments": "pavle.curcic678@gmail.com",
+	"executionTime": "...",
+	"executionUnit": "Hours",
+	"executionFrequency": "2"
+}
