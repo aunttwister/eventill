@@ -115,7 +115,7 @@ export class EventOccurrenceOverviewComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges): void {
   }
   ngOnInit(): void {
-    let eventId = 1;
+    let eventId = 3;
     this.getEventOccurrences(eventId);
   }
 
@@ -215,6 +215,7 @@ export class EventOccurrenceOverviewComponent implements OnInit {
 
   pastDate(date: Date)
   {
+    console.log(this.now > date)
     return this.now > date;
   }
 }

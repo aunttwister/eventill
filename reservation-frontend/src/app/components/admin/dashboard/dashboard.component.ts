@@ -1,15 +1,24 @@
 import { Component, ViewChild, ViewContainerRef } from '@angular/core';
 import { Observable, Observer } from 'rxjs';
 
-const componentsConfig = [
+const componentsConfig: any = [
   {
     component: () =>
       import('../event-occurrence-overview/event-occurrence-overview.component').then(
-        (it) => it.EventOccurrenceOverviewComponent
+        (it) => it.EventOccurrenceOverviewComponent,
       ),
     inputs: {
       name: 'EventOccurrenceOverview',
     },
+  },
+  {
+    component: () =>
+      import('../create-event-occurrence/create-event-occurrence.component').then(
+        (it) => it.CreateEventOccurrenceComponent,
+      ),
+    inputs: {
+      name: 'CreateEventOccurrence',
+    }
   }
 ]
 

@@ -23,7 +23,7 @@ export class EventOverviewComponent implements OnInit {
 
   ngOnInit(): void {
     let dateNow = new Date();
-    let eventId = 1;
+    let eventId = 3;
     this.getEvent(eventId, dateNow)
   }
 

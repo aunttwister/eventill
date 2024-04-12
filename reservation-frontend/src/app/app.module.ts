@@ -27,7 +27,7 @@ import { DatePipe } from '@angular/common';
     EventOverviewComponent,
     ConfirmationPageComponent,
     DashboardComponent,
-    LoginComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
